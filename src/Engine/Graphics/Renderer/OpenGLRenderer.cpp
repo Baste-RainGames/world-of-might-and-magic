@@ -2707,17 +2707,24 @@ void OpenGLRenderer::BeginScene2D() {
     _set_ortho_modelview();
 }
 
-// TODO(pskelton): use alpha from mask too
+
 void OpenGLRenderer::DrawTextureNew(float u, float v, GraphicsImage *tex, Color colourmask) {
+    assert(tex);
+
+    int width = tex->width();
+    int height = tex->height();
+
+    DrawTextureNew(u, v, width, height, tex, colourmask);
+}
+
+// TODO(pskelton): use alpha from mask too
+void OpenGLRenderer::DrawTextureNew(float u, float v, int width, int height, GraphicsImage* tex, Color colourmask) {
     assert(tex);
 
     if (engine->callObserver)
         engine->callObserver->notify(CALL_DRAW_2D_TEXTURE, tex->GetName());
 
     Colorf cf = colourmask.toColorf();
-
-    int width = tex->width();
-    int height = tex->height();
 
     int x = u * outputRender.w;
     int y = v * outputRender.h;
@@ -2917,7 +2924,6 @@ void OpenGLRenderer::DrawTextureCustomHeight(float u, float v, GraphicsImage *im
     if (twodvertscnt > 490) DrawTwodVerts();
     return;
 }
-
 
 twodverts textshaderstore[10000] = {};
 int textvertscnt = 0;
