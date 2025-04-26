@@ -96,6 +96,7 @@ class Renderer {
 
     virtual void DrawTextureNew(float u, float v, GraphicsImage *img, Color colourmask32 = colorTable.White) = 0;
     virtual void DrawTextureNew(float u, float v, int width, int height, GraphicsImage* img, Color colourmask32 = colorTable.White) = 0;
+    virtual void DrawTextureNewScaled(float u, float v, GraphicsImage* img, Color colourmask32 = colorTable.White) = 0;
     virtual void DrawTextureCustomHeight(float u, float v, GraphicsImage *, int height) = 0;
     virtual void DrawTextureOffset(int x, int y, int offset_x, int offset_y, GraphicsImage *) = 0;
     virtual void DrawImage(GraphicsImage *, const Recti &rect, int paletteid = 0, Color colourmask32 = colorTable.White) = 0;

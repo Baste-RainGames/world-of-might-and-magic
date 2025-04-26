@@ -2716,6 +2716,20 @@ void OpenGLRenderer::DrawTextureNew(float u, float v, GraphicsImage *tex, Color 
     DrawTextureNew(u, v, width, height, tex, colourmask);
 }
 
+// Scales the image to fit the current resolution, with 640x480 as the baseline.
+void OpenGLRenderer::DrawTextureNewScaled(float u, float v, GraphicsImage* tex, Color colourmask) {
+    assert(tex);
+
+    Sizei dimensions = GetRenderDimensions();
+    float scaleW = dimensions.w / 640.0;
+    float scaleH = dimensions.h / 480.0;
+
+    int width  = tex->width() * scaleW;
+    int height = tex->height() * scaleH;
+
+    DrawTextureNew(u, v, width, height, tex, colourmask);
+}
+
 // TODO(pskelton): use alpha from mask too
 void OpenGLRenderer::DrawTextureNew(float u, float v, int width, int height, GraphicsImage* tex, Color colourmask) {
     assert(tex);
