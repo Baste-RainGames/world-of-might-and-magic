@@ -41,7 +41,7 @@ GUIWindow_MainMenu::~GUIWindow_MainMenu() {
 }
 
 void GUIWindow_MainMenu::Update() {
-    render->DrawTextureNew(0, 0, main_menu_background);
+    render->DrawTextureNew(0, 0, this->uFrameWidth, this->uFrameHeight, main_menu_background);
 
     Pointi pt = mouse->position();
 
@@ -49,7 +49,7 @@ void GUIWindow_MainMenu::Update() {
     for (GUIButton *pButton : vButtons) {
         if (pButton->Contains(pt.x, pt.y)) {
             auto pControlParam = pButton->msg_param;
-            int pY = 0;
+            float pY = 0;
             switch (pControlParam) {  // backlight for buttons
                 case 0:
                     pTexture = assets->getImage_ColorKey("title_new");
@@ -68,7 +68,7 @@ void GUIWindow_MainMenu::Update() {
                     pY = 337;
                     break;
             }
-            render->DrawTextureNew(495 / float(render->GetRenderDimensions().w), pY / float(render->GetRenderDimensions().h), pTexture);
+            render->DrawTextureNewScaled(495.0 / 640.0, pY / 480.0, pTexture);
         }
     }
 }
