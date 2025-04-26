@@ -100,5 +100,12 @@ void GUIButton::DrawLabel(std::string_view text, GUIFont *font, Color color, Col
 }
 
 bool GUIButton::Contains(unsigned int x, unsigned int y) {
+    auto dimensions = render->GetRenderDimensions();
+    float scaleX = dimensions.w / 640.0;
+    float scaleY = dimensions.h / 480.0;
+
+    x /= scaleX;
+    y /= scaleY;
+
     return (x >= uX && x <= uZ && y >= uY && y <= uW);
 }
