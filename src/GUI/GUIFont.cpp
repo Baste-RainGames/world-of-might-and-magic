@@ -445,7 +445,7 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
 
     render->BeginTextNew(fonttex, fontshadow);
 
-    size_t v30 = text.length();
+    size_t textLength = text.length();
     if (!position.x) {
         position.x = 12;
     }
@@ -467,10 +467,10 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
     Color draw_color = color;
 
     char Dest[6] = { 0 };
-    size_t v14 = 0;
-    if (v30 > 0) {
+    size_t charIndex = 0;
+    if (textLength > 0) {
         do {
-            uint8_t c = string_base[v14];
+            uint8_t c = string_base[charIndex];
             if (c >= pData.header.cFirstChar && c <= pData.header.cLastChar
                 || c == '\f'
                 || c == '\r'
@@ -478,9 +478,9 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                 || c == '\n') {
                 switch (c) {
                 case '\t':
-                    strncpy(Dest, &string_base[v14 + 1], 3);
+                    strncpy(Dest, &string_base[charIndex + 1], 3);
                     Dest[3] = 0;
-                    v14 += 3;
+                    charIndex += 3;
                     left_margin = atoi(Dest);
                     out_x = position.x + window->uFrameX + left_margin;
                     break;
@@ -495,15 +495,15 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                     }
                     break;
                 case '\f':
-                    draw_color = parseColorTag(&string_base[v14 + 1], color);
-                    v14 += 5;
+                    draw_color = parseColorTag(&string_base[charIndex + 1], color);
+                    charIndex += 5;
                     break;
                 case '\r':
-                    strncpy(Dest, &string_base[v14 + 1], 3);
+                    strncpy(Dest, &string_base[charIndex + 1], 3);
                     Dest[3] = 0;
-                    v14 += 3;
+                    charIndex += 3;
                     left_margin = atoi(Dest);
-                    out_x = window->uFrameZ - this->GetLineWidth(&string_base[v14]) - left_margin;
+                    out_x = window->uFrameZ - this->GetLineWidth(&string_base[charIndex]) - left_margin;
                     out_y = position.y + window->uFrameY;
                     if (maxHeight != 0) {
                         if (pData.header.uFontHeight + out_y - 3 > maxHeight) {
@@ -514,12 +514,12 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                     break;
 
                 default:
-                    if (c == '\"' && string_base[v14 + 1] == '\"') {
-                        ++v14;
+                    if (c == '\"' && string_base[charIndex + 1] == '\"') {
+                        ++charIndex;
                     }
 
-                    c = (uint8_t)string_base[v14];
-                    if (v14 > 0) {
+                    c = (uint8_t)string_base[charIndex];
+                    if (charIndex > 0) {
                         out_x += pData.header.pMetrics[c].uLeftSpacing;
                     }
 
@@ -535,13 +535,13 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                     render->DrawTextNew(out_x, out_y, pData.header.pMetrics[c].uWidth, pData.header.uFontHeight, u1, v1, u2, v2, 0, draw_color);
 
                     out_x += pData.header.pMetrics[c].uWidth;
-                    if (v14 < v30) {
+                    if (charIndex < textLength) {
                         out_x += pData.header.pMetrics[c].uRightSpacing;
                     }
                     break;
                 }
             }
-        } while (++v14 < v30);
+        } while (++charIndex < textLength);
     }
     // render->EndTextNew();
 }
