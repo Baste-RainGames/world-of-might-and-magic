@@ -172,6 +172,7 @@ class Renderer {
 
     virtual Sizei GetRenderDimensions() = 0;
     virtual Sizei GetPresentDimensions() = 0;
+    virtual Sizef GetRenderScale() = 0;
     virtual bool Reinitialize(bool firstInit = false) = 0;
     virtual bool ReloadShaders() = 0;
     virtual void DoRenderBillboards_D3D() = 0;

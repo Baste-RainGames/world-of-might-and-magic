@@ -51,6 +51,7 @@ class BaseRenderer : public Renderer {
 
     virtual Sizei GetRenderDimensions() override;
     virtual Sizei GetPresentDimensions() override;
+    virtual Sizef GetRenderScale() override;
 
  protected:
     unsigned int Billboard_ProbablyAddToListAndSortByZOrder(float z);
@@ -59,6 +60,7 @@ class BaseRenderer : public Renderer {
  protected:
     Sizei outputRender = {0, 0};
     Sizei outputPresent = {0, 0};
+    Sizef outputScale = {0, 0};
 
  private:
     void updateRenderDimensions();

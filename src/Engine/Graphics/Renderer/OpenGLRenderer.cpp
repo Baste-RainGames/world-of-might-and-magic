@@ -2720,12 +2720,8 @@ void OpenGLRenderer::DrawTextureNew(float u, float v, GraphicsImage *tex, Color 
 void OpenGLRenderer::DrawTextureNewScaled(float u, float v, GraphicsImage* tex, Color colourmask) {
     assert(tex);
 
-    Sizei dimensions = GetRenderDimensions();
-    float scaleW = dimensions.w / 640.0;
-    float scaleH = dimensions.h / 480.0;
-
-    int width  = tex->width() * scaleW;
-    int height = tex->height() * scaleH;
+    int width  = tex->width() * outputScale.w;
+    int height = tex->height() * outputScale.h;
 
     DrawTextureNew(u, v, width, height, tex, colourmask);
 }
@@ -3054,21 +3050,29 @@ void OpenGLRenderer::EndTextNew() {
     return;
 }
 
-void OpenGLRenderer::DrawTextNew(int x, int y, int width, int h, float u1, float v1, float u2, float v2, int isshadow, Color colour) {
+void OpenGLRenderer::DrawTextNew(int x, int y, int width, int height, float u1, float v1, float u2, float v2, int isshadow, Color colour) {
     Colorf cf = colour.toColorf();
     // not 100% sure why this is required but it is
     if (cf.r == 0.0f)
         cf.r = 0.00392f;
 
+    Sizef scale = render->GetRenderScale();
+
+    x *= scale.w;
+    y *= scale.h;
+
+    width *= scale.w;
+    height *= scale.h;
+
     int z = x + width;
-    int w = y + h;
+    int w = y + height;
 
     // check bounds
     if (x >= outputRender.w || y >= outputRender.h)
         return;
 
     // check for overlap
-    if (!Recti(x, y, width, h).intersects(this->clipRect)) return;
+    if (!Recti(x, y, width, height).intersects(this->clipRect)) return;
 
     float drawx = static_cast<float>(x);
     float drawy = static_cast<float>(y);

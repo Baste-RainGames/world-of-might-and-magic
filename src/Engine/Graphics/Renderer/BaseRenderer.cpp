@@ -759,12 +759,18 @@ Sizei BaseRenderer::GetPresentDimensions() {
     return outputPresent;
 }
 
+Sizef BaseRenderer::GetRenderScale() {
+    return outputScale;
+}
+
 void BaseRenderer::updateRenderDimensions() {
     outputPresent = window->size();
     if (config->graphics.RenderFilter.value() != 0)
         outputRender = {config->graphics.RenderWidth.value(), config->graphics.RenderHeight.value()};
     else
         outputRender = outputPresent;
+    
+    outputScale = { outputRender.w / 640.0f , outputRender.h / 480.0f };
 }
 
 int BaseRenderer::QueryEquipmentHitMap(Pointi screenPos) {
