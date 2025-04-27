@@ -403,6 +403,11 @@ GUIButton *GUIWindow::CreateButton(std::string id, Pointi position, Sizei dimens
 }
 
 bool GUIWindow::Contains(unsigned int x, unsigned int y) {
+    Sizef scale = render->GetRenderScale();
+
+    x /= scale.w;
+    y /= scale.h;
+
     return (x >= uFrameX && x <= uFrameZ && y >= uFrameY && y <= uFrameW);
 }
 
