@@ -267,7 +267,7 @@ void GUIWindow_PartyCreation::Update() {
     int pTextCenter;                // eax@3
     int pX;                         // ecx@7
     GUIButton *uPosActiveItem;      // edi@12
-    int v17;                        // eax@33
+    int nameWidth;                        // eax@33
     Color pStatColor;        // eax@44
     CharacterSkillType pSkillsType;  // eax@44
     CharacterClass uClassType;   // edi@53
@@ -288,11 +288,11 @@ void GUIWindow_PartyCreation::Update() {
 
     // move sky
     render->BeginScene2D();
-    render->DrawTextureNew(0, 0, main_menu_background);
+    render->DrawTextureNewScaled(0, 0,main_menu_background);
     int sky_slider_anim_timer = std::fmod(pMiscTimer->time().realtimeMillisecondsFloat() * oldDims.w / 20, oldDims.w);
-    render->DrawTextureNew(sky_slider_anim_timer / oldDims.w, 2 / oldDims.h, ui_partycreation_sky_scroller);
-    render->DrawTextureNew((sky_slider_anim_timer - (int)oldDims.w) / oldDims.w, 2 / oldDims.h, ui_partycreation_sky_scroller);
-    render->DrawTextureNew(0, 0, ui_partycreation_top);
+    render->DrawTextureNewScaled(sky_slider_anim_timer / oldDims.w, 2 / oldDims.h, ui_partycreation_sky_scroller);
+    render->DrawTextureNewScaled((sky_slider_anim_timer - (int)oldDims.w) / oldDims.w, 2 / oldDims.h, ui_partycreation_sky_scroller);
+    render->DrawTextureNewScaled(0, 0, ui_partycreation_top);
 
     uPlayerCreationUI_SelectedCharacter = (pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem) / 7;
     switch (uPlayerCreationUI_SelectedCharacter) {
@@ -319,18 +319,18 @@ void GUIWindow_PartyCreation::Update() {
     pGUIWindow_CurrentMenu->DrawText(ui_partycreation_font.get(), {pTextCenter + 1, 0}, colorTable.White,
         localization->GetString(LSTR_C_R_E_A_T_E_P_A_R_T_Y));
 
-    render->DrawTextureNew(17 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[0].uCurrentFace]);
-    render->DrawTextureNew(176 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[1].uCurrentFace]);
-    render->DrawTextureNew(335 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[2].uCurrentFace]);
-    render->DrawTextureNew(494 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[3].uCurrentFace]);
+    render->DrawTextureNewScaled(17 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[0].uCurrentFace]);
+    render->DrawTextureNewScaled(176 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[1].uCurrentFace]);
+    render->DrawTextureNewScaled(335 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[2].uCurrentFace]);
+    render->DrawTextureNewScaled(494 / oldDims.w, 35 / oldDims.h, ui_partycreation_portraits[pParty->pCharacters[3].uCurrentFace]);
 
     // arrows
-    render->DrawTextureNew(pX / oldDims.w, 29 / oldDims.h, ui_partycreation_character_frame);
+    render->DrawTextureNewScaled(pX / oldDims.w, 29 / oldDims.h, ui_partycreation_character_frame);
     uPosActiveItem = pGUIWindow_CurrentMenu->GetControl(pGUIWindow_CurrentMenu->pCurrentPosActiveItem);
     // cycle arrows backwards
     int arrowAnimTextureNum = ui_partycreation_arrow_l.size() - 1 - (pMiscTimer->time().realtimeMilliseconds() % ARROW_SPIN_PERIOD_MS) / (ARROW_SPIN_PERIOD_MS / ui_partycreation_arrow_l.size());
-    render->DrawTextureNew((uPosActiveItem->uZ - 4) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_l[arrowAnimTextureNum]);
-    render->DrawTextureNew((uPosActiveItem->uX - 12) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_r[arrowAnimTextureNum]);
+    render->DrawTextureNewScaled((uPosActiveItem->uZ - 4) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_l[arrowAnimTextureNum]);
+    render->DrawTextureNewScaled((uPosActiveItem->uX - 12) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_r[arrowAnimTextureNum]);
 
     pText = localization->GetString(LSTR_SKILLS);
     for (int i = pText.size() - 1; i >= 0; i--)
@@ -349,9 +349,9 @@ void GUIWindow_PartyCreation::Update() {
         if (pGUIWindow_CurrentMenu->keyboard_input_status != WINDOW_INPUT_NONE && uPlayerCreationUI_NameEditCharacter == i) {
             switch (pGUIWindow_CurrentMenu->keyboard_input_status) {
             case WINDOW_INPUT_IN_PROGRESS:  // press name panel
-                v17 = pGUIWindow_CurrentMenu->DrawTextInRect(assets->pFontCreate.get(), {159 * uPlayerCreationUI_NameEditCharacter + 18, 124}, colorTable.White,
+                nameWidth = pGUIWindow_CurrentMenu->DrawTextInRect(assets->pFontCreate.get(), {159 * uPlayerCreationUI_NameEditCharacter + 18, 124}, colorTable.White,
                     keyboardInputHandler->GetTextInput(), 120, 1);
-                pGUIWindow_CurrentMenu->DrawFlashingInputCursor(159 * uPlayerCreationUI_NameEditCharacter + v17 + 20, 124, assets->pFontCreate.get());
+                pGUIWindow_CurrentMenu->DrawFlashingInputCursor(159 * uPlayerCreationUI_NameEditCharacter + nameWidth + 20, 124, assets->pFontCreate.get());
                 break;
             case WINDOW_INPUT_CONFIRMED:  // press enter
                 pGUIWindow_CurrentMenu->keyboard_input_status = WINDOW_INPUT_NONE;
