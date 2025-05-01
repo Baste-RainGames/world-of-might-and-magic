@@ -79,11 +79,10 @@ void CreateParty_EventLoop() {
         switch (msg) {
         case UIMSG_PlayerCreation_SelectAttribute:
         {
-            pGUIWindow_CurrentMenu->pCurrentPosActiveItem =
-                (pGUIWindow_CurrentMenu->pCurrentPosActiveItem -
-                    pGUIWindow_CurrentMenu->pStartingPosActiveItem) %
-                7 +
-                pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+            auto selectedAttributeIndex = (pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem) % 7;
+            auto selectedCharacterIndex = pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+
+            pGUIWindow_CurrentMenu->pCurrentPosActiveItem = selectedCharacterIndex + selectedAttributeIndex;
             uPlayerCreationUI_SelectedCharacter = param;
             pAudioPlayer->playUISound(SOUND_SelectingANewCharacter);
             break;
@@ -332,10 +331,6 @@ void GUIWindow_PartyCreation::Update() {
     render->DrawTextureNewScaled((uPosActiveItem->uZ - 4) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_l[arrowAnimTextureNum]);
     render->DrawTextureNewScaled((uPosActiveItem->uX - 12) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_r[arrowAnimTextureNum]);
 
-    pText = localization->GetString(LSTR_SKILLS);
-    for (int i = pText.size() - 1; i >= 0; i--)
-        pText[i] = toupper(pText[i]); // TODO(captainurist): #unicode this won't work with a Russian localization.
-
     pIntervalX = 18;
     pIntervalY = assets->pFontCreate->GetHeight() - 2;
     uX = 32;
@@ -344,7 +339,7 @@ void GUIWindow_PartyCreation::Update() {
     for (int i = 0; i < 4; ++i) {
         pGUIWindow_CurrentMenu->DrawText(assets->pFontCreate.get(), {pIntervalX + 73, 100}, colorTable.White,
             localization->GetClassName(pParty->pCharacters[i].classType));
-        render->DrawTextureNew((pIntervalX + 77) / oldDims.w, 50 / oldDims.h, ui_partycreation_class_icons[std::to_underlying(pParty->pCharacters[i].classType) / 4]);
+        render->DrawTextureNewScaled((pIntervalX + 77) / oldDims.w, 50 / oldDims.h, ui_partycreation_class_icons[std::to_underlying(pParty->pCharacters[i].classType) / 4]);
 
         if (pGUIWindow_CurrentMenu->keyboard_input_status != WINDOW_INPUT_NONE && uPlayerCreationUI_NameEditCharacter == i) {
             switch (pGUIWindow_CurrentMenu->keyboard_input_status) {
@@ -378,6 +373,10 @@ void GUIWindow_PartyCreation::Update() {
 
         std::string pRaceName = pParty->pCharacters[i].GetRaceName();
         pGUIWindow_CurrentMenu->DrawTextInRect(assets->pFontCreate.get(), {pIntervalX + 72, pIntervalY + 12}, colorTable.White, pRaceName, 130, 0);
+
+        pText = localization->GetString(LSTR_SKILLS);
+        for (int i = pText.size() - 1; i >= 0; i--)
+            pText[i] = toupper(pText[i]); // TODO(captainurist): #unicode this won't work with a Russian localization.
 
         pTextCenter = assets->pFontCreate->AlignText_Center(150, pText);
         pGUIWindow_CurrentMenu->DrawText(assets->pFontCreate.get(), {pTextCenter + uX - 24, 291}, colorTable.Tacha, pText);  // Skills
@@ -581,7 +580,6 @@ GUIWindow_PartyCreation::GUIWindow_PartyCreation() :
 
     current_screen_type = SCREEN_PARTY_CREATION;
     uPlayerCreationUI_SelectedCharacter = 0;
-    int v0 = assets->pFontCreate->GetHeight() - 2;
 
     ui_partycreation_class_icons[0] = assets->getImage_ColorKey("IC_KNIGHT");
     ui_partycreation_class_icons[1] = assets->getImage_ColorKey("IC_THIEF");
@@ -642,16 +640,17 @@ GUIWindow_PartyCreation::GUIWindow_PartyCreation() :
     pCreationUI_BtnPressRight2[2] = CreateButton({391, 103}, {11, 13}, 1, 0, UIMSG_PlayerCreation_VoiceNext, 2, Io::InputAction::Invalid, "", {ui_partycreation_right});
     pCreationUI_BtnPressRight2[3] = CreateButton({549, 103}, {11, 13}, 1, 0, UIMSG_PlayerCreation_VoiceNext, 3, Io::InputAction::Invalid, "", {ui_partycreation_right});
 
+    int v0 = assets->pFontCreate->GetHeight() - 2;
     uX = 8;
     for (int characterIndex = 0 ; characterIndex < 4; characterIndex++) {
-        CreateButton({uX, 308}, {150, v0}, 1, 0, UIMSG_48, characterIndex);
-        CreateButton({uX, v0 + 308}, {150, v0}, 1, 0, UIMSG_49, characterIndex);
+        CreateButton({uX, 308}, {150, v0}, 1, 0, UIMSG_PlayerCreationFixedUpSkill, characterIndex);
+        CreateButton({uX, v0 + 308}, {150, v0}, 1, 0, UIMSG_PlayerCreationFixedDownSkill, characterIndex);
         CreateButton({uX, 2 * v0 + 308}, {150, v0}, 1, 0, UIMSG_PlayerCreationRemoveUpSkill, characterIndex);
         CreateButton({uX, 3 * v0 + 308}, {150, v0}, 1, 0, UIMSG_PlayerCreationRemoveDownSkill, characterIndex);
         uX += 158;
     }
 
-    CreateButton({5, 21}, {153, 365}, 1, 0, UIMSG_PlayerCreation_SelectAttribute, 0, Io::InputAction::SelectChar1);
+    CreateButton({5,   21}, {153, 365}, 1, 0, UIMSG_PlayerCreation_SelectAttribute, 0, Io::InputAction::SelectChar1);
     CreateButton({163, 21}, {153, 365}, 1, 0, UIMSG_PlayerCreation_SelectAttribute, 1, Io::InputAction::SelectChar2);
     CreateButton({321, 21}, {153, 365}, 1, 0, UIMSG_PlayerCreation_SelectAttribute, 2, Io::InputAction::SelectChar3);
     CreateButton({479, 21}, {153, 365}, 1, 0, UIMSG_PlayerCreation_SelectAttribute, 3, Io::InputAction::SelectChar4);

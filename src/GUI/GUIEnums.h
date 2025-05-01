@@ -51,8 +51,8 @@ enum UIMessageType : uint32_t {
     UIMSG_CastSpell_TargetCharacter = 69,
     UIMSG_CastSpell_TargetActor = 70,
     UIMSG_ClickBooksBtn = 71,
-    UIMSG_48 = 72,  // fixed skill 1
-    UIMSG_49 = 73,  // fixed skill 2
+    UIMSG_PlayerCreationFixedUpSkill = 72,  // fixed skill 1
+    UIMSG_PlayerCreationFixedDownSkill = 73,  // fixed skill 2
     UIMSG_PlayerCreationRemoveUpSkill = 74,  // choice skill 1
     UIMSG_PlayerCreationRemoveDownSkill = 75,  // choice skill 2
 

@@ -355,6 +355,10 @@ int GUIFont::AlignText_Center(int width, std::string_view pString) {
 }
 
 std::string GUIFont::FitTextInAWindow(std::string_view inString, int width, int uX, bool return_on_carriage) {
+    // TODO(Baste): It seems like this function is called with uX as a 640/480-based value, and width an 
+    // actual resolution width (eg 1920), but that could very well not always be the case!
+    width /= render->GetRenderScale().w; 
+
     assert(uX < width);
 
     if (inString.empty()) {
@@ -444,6 +448,8 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
     }
 
     render->BeginTextNew(fonttex, fontshadow);
+    
+    auto scale = render->GetRenderScale();
 
     size_t textLength = text.length();
     if (!position.x) {
@@ -499,12 +505,20 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                     charIndex += 5;
                     break;
                 case '\r':
+                {
+                    // This means "move the cursor to the right edge of the frame, minus the 3-digit value specified by the next 3 characters, minus the width of the character after that
+                    // So it's used to manually right-align text.
                     strncpy(Dest, &string_base[charIndex + 1], 3);
                     Dest[3] = 0;
                     charIndex += 3;
                     left_margin = atoi(Dest);
-                    out_x = window->uFrameZ - this->GetLineWidth(&string_base[charIndex]) - left_margin;
+
+                    auto out_x_before = out_x;
+
+                    auto line_width = this->GetLineWidth(&string_base[charIndex]);
+                    out_x = (window->uFrameZ / render->GetRenderScale().w) - line_width - left_margin;
                     out_y = position.y + window->uFrameY;
+
                     if (maxHeight != 0) {
                         if (pData.header.uFontHeight + out_y - 3 > maxHeight) {
                             return;
@@ -512,7 +526,7 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                         break;
                     }
                     break;
-
+                }
                 default:
                     if (c == '\"' && string_base[charIndex + 1] == '\"') {
                         ++charIndex;
@@ -599,7 +613,7 @@ int GUIFont::DrawTextInRect(GUIWindow *window, Pointi position, Color color, std
     buf[i - 1] = 0;
 
     pNumLen = strlen(buf);
-    unsigned int v28 = this->GetLineWidth(buf);
+    unsigned int lineWidth = this->GetLineWidth(buf);
     if (reverse_text)
         std::reverse(buf, buf + pNumLen);
 
@@ -608,9 +622,9 @@ int GUIFont::DrawTextInRect(GUIWindow *window, Pointi position, Color color, std
     int text_pos_x = position.x + window->uFrameX;
     int text_pos_y = position.y + window->uFrameY;
     for (i = 0; i < pNumLen; ++i) {
-        uint8_t v15 = buf[i];
-        if (this->IsCharValid(v15)) {
-            switch (v15) {
+        uint8_t currentChar = buf[i];
+        if (this->IsCharValid(currentChar)) {
+            switch (currentChar) {
             case '\t': {  // Horizontal tab 09
                 char Str[6];
                 strncpy(Str, &buf[i + 1], 3);
@@ -641,31 +655,31 @@ int GUIFont::DrawTextInRect(GUIWindow *window, Pointi position, Color color, std
                 break;
             }
             default: {
-                unsigned int char_width = pData.header.pMetrics[v15].uWidth;
+                unsigned int char_width = pData.header.pMetrics[currentChar].uWidth;
                 if (i > 0) {
-                    text_pos_x += pData.header.pMetrics[v15].uLeftSpacing;
+                    text_pos_x += pData.header.pMetrics[currentChar].uLeftSpacing;
                 }
-                uint8_t *char_pix_ptr = &pData.pixels[pData.header.font_pixels_offset[v15]];
-                int xsq = v15 % 16;
-                int ysq = v15 / 16;
+                uint8_t *char_pix_ptr = &pData.pixels[pData.header.font_pixels_offset[currentChar]];
+                int xsq = currentChar % 16;
+                int ysq = currentChar / 16;
                 float u1 = (xsq * 32.0f) / 512.0f;
-                float u2 = (xsq * 32.0f + pData.header.pMetrics[v15].uWidth) / 512.0f;
+                float u2 = (xsq * 32.0f + pData.header.pMetrics[currentChar].uWidth) / 512.0f;
                 float v1 = (ysq * 32.0f) / 512.0f;
                 float v2 = (ysq * 32.0f + pData.header.uFontHeight) / 512.0f;
 
-                render->DrawTextNew(text_pos_x, text_pos_y, pData.header.pMetrics[v15].uWidth, pData.header.uFontHeight, u1, v1, u2, v2, 1, colorTable.Black);
-                render->DrawTextNew(text_pos_x, text_pos_y, pData.header.pMetrics[v15].uWidth, pData.header.uFontHeight, u1, v1, u2, v2, 0, draw_color);
+                render->DrawTextNew(text_pos_x, text_pos_y, pData.header.pMetrics[currentChar].uWidth, pData.header.uFontHeight, u1, v1, u2, v2, 1, colorTable.Black);
+                render->DrawTextNew(text_pos_x, text_pos_y, pData.header.pMetrics[currentChar].uWidth, pData.header.uFontHeight, u1, v1, u2, v2, 0, draw_color);
 
                 text_pos_x += char_width;
                 if (i < (int)pNumLen) {
-                    text_pos_x += pData.header.pMetrics[v15].uRightSpacing;
+                    text_pos_x += pData.header.pMetrics[currentChar].uRightSpacing;
                 }
             }
             }
         }
     }
     render->EndTextNew();
-    return v28;
+    return lineWidth;
 }
 
 void GUIFont::DrawCreditsEntry(GUIFont *pSecondFont, int uFrameX, int uFrameY, unsigned int w, unsigned int h,

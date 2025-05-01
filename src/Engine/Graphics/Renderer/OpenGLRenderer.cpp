@@ -2934,8 +2934,8 @@ void OpenGLRenderer::DrawTextureCustomHeight(float u, float v, GraphicsImage *im
     return;
 }
 
-twodverts textshaderstore[10000] = {};
-int textvertscnt = 0;
+twodverts textShaderStore[10000] = {};
+int textVertsCnt = 0;
 
 void OpenGLRenderer::BeginTextNew(GraphicsImage *main, GraphicsImage *shadow) {
     // draw any images in buffer
@@ -2962,7 +2962,7 @@ void OpenGLRenderer::BeginTextNew(GraphicsImage *main, GraphicsImage *shadow) {
 }
 
 void OpenGLRenderer::EndTextNew() {
-    if (!textvertscnt) return;
+    if (!textVertsCnt) return;
 
     if (twodvertscnt) {
         DrawTwodVerts();
@@ -2975,7 +2975,7 @@ void OpenGLRenderer::EndTextNew() {
         glBindVertexArray(textVAO);
         glBindBuffer(GL_ARRAY_BUFFER, textVBO);
 
-        glBufferData(GL_ARRAY_BUFFER, sizeof(textshaderstore), NULL, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(textShaderStore), NULL, GL_DYNAMIC_DRAW);
 
         // position attribute
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(twodverts), (void *)offsetof(twodverts, x));
@@ -2994,9 +2994,9 @@ void OpenGLRenderer::EndTextNew() {
     // update buffer
     glBindBuffer(GL_ARRAY_BUFFER, textVBO);
     // orphan
-    glBufferData(GL_ARRAY_BUFFER, sizeof(textshaderstore), NULL, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(textShaderStore), NULL, GL_DYNAMIC_DRAW);
     // update buffer
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(twodverts) * textvertscnt, textshaderstore);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(twodverts) * textVertsCnt, textShaderStore);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -3027,7 +3027,7 @@ void OpenGLRenderer::EndTextNew() {
     glActiveTexture(GL_TEXTURE0 + 1);
     glBindTexture(GL_TEXTURE_2D, texshadow);
 
-    glDrawArrays(GL_TRIANGLES, 0, textvertscnt);
+    glDrawArrays(GL_TRIANGLES, 0, textVertsCnt);
     drawcalls++;
 
     glUseProgram(0);
@@ -3044,7 +3044,7 @@ void OpenGLRenderer::EndTextNew() {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    textvertscnt = 0;
+    textVertsCnt = 0;
     // texmain = 0;
     // texshadow = 0;
     return;
@@ -3079,75 +3079,74 @@ void OpenGLRenderer::DrawTextNew(int x, int y, int width, int height, float u1, 
     float draww = static_cast<float>(w);
     float drawz = static_cast<float>(z);
 
-    float depth = 0;
     float texx = u1;
     float texy = v1;
     float texz = u2;
     float texw = v2;
 
     // 0 1 2 / 0 2 3
-    textshaderstore[textvertscnt].x = drawx;
-    textshaderstore[textvertscnt].y = drawy;
-    textshaderstore[textvertscnt].z = 0;
-    textshaderstore[textvertscnt].u = texx;
-    textshaderstore[textvertscnt].v = texy;
-    textshaderstore[textvertscnt].color = cf;
-    textshaderstore[textvertscnt].texid = (isshadow);
-    textshaderstore[textvertscnt].paletteid = 0;
-    textvertscnt++;
+    textShaderStore[textVertsCnt].x = drawx;
+    textShaderStore[textVertsCnt].y = drawy;
+    textShaderStore[textVertsCnt].z = 0;
+    textShaderStore[textVertsCnt].u = texx;
+    textShaderStore[textVertsCnt].v = texy;
+    textShaderStore[textVertsCnt].color = cf;
+    textShaderStore[textVertsCnt].texid = (isshadow);
+    textShaderStore[textVertsCnt].paletteid = 0;
+    textVertsCnt++;
 
-    textshaderstore[textvertscnt].x = drawz;
-    textshaderstore[textvertscnt].y = drawy;
-    textshaderstore[textvertscnt].z = 0;
-    textshaderstore[textvertscnt].u = texz;
-    textshaderstore[textvertscnt].v = texy;
-    textshaderstore[textvertscnt].color = cf;
-    textshaderstore[textvertscnt].texid = (isshadow);
-    textshaderstore[textvertscnt].paletteid = 0;
-    textvertscnt++;
+    textShaderStore[textVertsCnt].x = drawz;
+    textShaderStore[textVertsCnt].y = drawy;
+    textShaderStore[textVertsCnt].z = 0;
+    textShaderStore[textVertsCnt].u = texz;
+    textShaderStore[textVertsCnt].v = texy;
+    textShaderStore[textVertsCnt].color = cf;
+    textShaderStore[textVertsCnt].texid = (isshadow);
+    textShaderStore[textVertsCnt].paletteid = 0;
+    textVertsCnt++;
 
-    textshaderstore[textvertscnt].x = drawz;
-    textshaderstore[textvertscnt].y = draww;
-    textshaderstore[textvertscnt].z = 0;
-    textshaderstore[textvertscnt].u = texz;
-    textshaderstore[textvertscnt].v = texw;
-    textshaderstore[textvertscnt].color = cf;
-    textshaderstore[textvertscnt].texid = (isshadow);
-    textshaderstore[textvertscnt].paletteid = 0;
-    textvertscnt++;
+    textShaderStore[textVertsCnt].x = drawz;
+    textShaderStore[textVertsCnt].y = draww;
+    textShaderStore[textVertsCnt].z = 0;
+    textShaderStore[textVertsCnt].u = texz;
+    textShaderStore[textVertsCnt].v = texw;
+    textShaderStore[textVertsCnt].color = cf;
+    textShaderStore[textVertsCnt].texid = (isshadow);
+    textShaderStore[textVertsCnt].paletteid = 0;
+    textVertsCnt++;
 
     ////////////////////////////////
-    textshaderstore[textvertscnt].x = drawx;
-    textshaderstore[textvertscnt].y = drawy;
-    textshaderstore[textvertscnt].z = 0;
-    textshaderstore[textvertscnt].u = texx;
-    textshaderstore[textvertscnt].v = texy;
-    textshaderstore[textvertscnt].color = cf;
-    textshaderstore[textvertscnt].texid = (isshadow);
-    textshaderstore[textvertscnt].paletteid = 0;
-    textvertscnt++;
+    textShaderStore[textVertsCnt].x = drawx;
+    textShaderStore[textVertsCnt].y = drawy;
+    textShaderStore[textVertsCnt].z = 0;
+    textShaderStore[textVertsCnt].u = texx;
+    textShaderStore[textVertsCnt].v = texy;
+    textShaderStore[textVertsCnt].color = cf;
+    textShaderStore[textVertsCnt].texid = (isshadow);
+    textShaderStore[textVertsCnt].paletteid = 0;
+    textVertsCnt++;
 
-    textshaderstore[textvertscnt].x = drawz;
-    textshaderstore[textvertscnt].y = draww;
-    textshaderstore[textvertscnt].z = 0;
-    textshaderstore[textvertscnt].u = texz;
-    textshaderstore[textvertscnt].v = texw;
-    textshaderstore[textvertscnt].color = cf;
-    textshaderstore[textvertscnt].texid = (isshadow);
-    textshaderstore[textvertscnt].paletteid = 0;
-    textvertscnt++;
+    textShaderStore[textVertsCnt].x = drawz;
+    textShaderStore[textVertsCnt].y = draww;
+    textShaderStore[textVertsCnt].z = 0;
+    textShaderStore[textVertsCnt].u = texz;
+    textShaderStore[textVertsCnt].v = texw;
+    textShaderStore[textVertsCnt].color = cf;
+    textShaderStore[textVertsCnt].texid = (isshadow);
+    textShaderStore[textVertsCnt].paletteid = 0;
+    textVertsCnt++;
 
-    textshaderstore[textvertscnt].x = drawx;
-    textshaderstore[textvertscnt].y = draww;
-    textshaderstore[textvertscnt].z = 0;
-    textshaderstore[textvertscnt].u = texx;
-    textshaderstore[textvertscnt].v = texw;
-    textshaderstore[textvertscnt].color = cf;
-    textshaderstore[textvertscnt].texid = (isshadow);
-    textshaderstore[textvertscnt].paletteid = 0;
-    textvertscnt++;
+    textShaderStore[textVertsCnt].x = drawx;
+    textShaderStore[textVertsCnt].y = draww;
+    textShaderStore[textVertsCnt].z = 0;
+    textShaderStore[textVertsCnt].u = texx;
+    textShaderStore[textVertsCnt].v = texw;
+    textShaderStore[textVertsCnt].color = cf;
+    textShaderStore[textVertsCnt].texid = (isshadow);
+    textShaderStore[textVertsCnt].paletteid = 0;
+    textVertsCnt++;
 
-    if (textvertscnt > 9990) EndTextNew();
+    if (textVertsCnt > 9990) EndTextNew();
 }
 
 void OpenGLRenderer::flushAndScale() {
@@ -4840,7 +4839,7 @@ bool OpenGLRenderer::ReloadShaders() {
         glDeleteBuffers(1, &textVBO);
         textVBO = 0;
     }
-    textvertscnt = 0;
+    textVertsCnt = 0;
 
     if (lineVAO) {
         glDeleteVertexArrays(1, &lineVAO);
