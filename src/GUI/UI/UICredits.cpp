@@ -48,14 +48,19 @@ void GUICredits::Update() {
     credit_window.uFrameX = 389;
     credit_window.uFrameY = 19;
 
-    render->ClearBlack();
-    //render->DrawTextureNew(0, 0, _mm6TitleTexture);
-    render->DrawTextureNew(0, _moveY, _creditsTexture);
+    auto renderScale = render->GetRenderScale();
+
+    render->DrawTextureNew(0, 0, _mm6TitleTexture);
+    
+    render->SetUIClipRect(Recti(credit_window.uFrameX * renderScale.w,
+                                credit_window.uFrameY * renderScale.h,
+                                credit_window.uFrameWidth * renderScale.w,
+                                credit_window.uFrameHeight * renderScale.h));
+    render->DrawTextureNew(credit_window.uFrameX / 640.0f, (credit_window.uFrameY - _moveY) / 480.0f, _creditsTexture);
+    render->ResetUIClipRect();
 
     /*
-    render->SetUIClipRect(Recti(credit_window.uFrameX, credit_window.uFrameY, credit_window.uFrameWidth, credit_window.uFrameHeight));
     render->DrawTextureOffset(credit_window.uFrameX, credit_window.uFrameY, 0, _moveY, _creditsTexture);
-    render->ResetUIClipRect();
     */
 
     _moveY += 2.5; // TODO(captainurist): #time gotta be dt-based.

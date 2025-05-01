@@ -2686,6 +2686,23 @@ void OpenGLRenderer::ResetUIClipRect() {
     this->SetUIClipRect(Recti(Pointi(0, 0), outputRender));
 }
 
+/*
+void OpenGLRenderer::SetUIClipRect(const Recti &rect) {
+    Recti scaledRect;
+    scaledRect.x = rect.x * outputScale.w;
+    scaledRect.y = rect.y * outputScale.h;
+    scaledRect.w = rect.x * outputScale.w;
+    scaledRect.h = rect.x * outputScale.h;
+
+    this->clipRect = scaledRect;
+    glScissor(scaledRect.x, outputRender.h - scaledRect.y - scaledRect.h, scaledRect.w, scaledRect.h);  // invert glscissor co-ords 0,0 is BL
+}
+
+void OpenGLRenderer::ResetUIClipRect() {
+    this->SetUIClipRect(Recti(Pointi(0, 0), Sizei(640, 480));
+}
+*/
+
 void OpenGLRenderer::BeginScene2D() {
     // Setup for 2D
 
