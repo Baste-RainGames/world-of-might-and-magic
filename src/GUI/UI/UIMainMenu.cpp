@@ -41,7 +41,7 @@ GUIWindow_MainMenu::~GUIWindow_MainMenu() {
 }
 
 void GUIWindow_MainMenu::Update() {
-    render->DrawTextureNew(0, 0, this->uFrameWidth, this->uFrameHeight, main_menu_background);
+    render->DrawTextureNew(0, 0, main_menu_background);
 
     Pointi pt = mouse->position();
 
@@ -68,7 +68,7 @@ void GUIWindow_MainMenu::Update() {
                     pY = 337;
                     break;
             }
-            render->DrawTextureNewScaled(495.0 / 640.0, pY / 480.0, pTexture);
+            render->DrawTextureNew(495.0 / 640.0, pY / 480.0, pTexture);
         }
     }
 }

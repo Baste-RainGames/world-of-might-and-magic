@@ -2710,18 +2710,8 @@ void OpenGLRenderer::BeginScene2D() {
 void OpenGLRenderer::DrawTextureNew(float u, float v, GraphicsImage *tex, Color colourmask) {
     assert(tex);
 
-    int width = tex->width();
+    int width  = tex->width();
     int height = tex->height();
-
-    DrawTextureNew(u, v, width, height, tex, colourmask);
-}
-
-// Scales the image to fit the current resolution, with 640x480 as the baseline.
-void OpenGLRenderer::DrawTextureNewScaled(float u, float v, GraphicsImage* tex, Color colourmask) {
-    assert(tex);
-
-    int width  = tex->width() * outputScale.w;
-    int height = tex->height() * outputScale.h;
 
     DrawTextureNew(u, v, width, height, tex, colourmask);
 }
@@ -2734,6 +2724,9 @@ void OpenGLRenderer::DrawTextureNew(float u, float v, int width, int height, Gra
         engine->callObserver->notify(CALL_DRAW_2D_TEXTURE, tex->GetName());
 
     Colorf cf = colourmask.toColorf();
+
+    width *= outputScale.w;
+    height *= outputScale.h;
 
     int x = u * outputRender.w;
     int y = v * outputRender.h;

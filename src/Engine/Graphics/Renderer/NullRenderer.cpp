@@ -79,11 +79,6 @@ void NullRenderer::DrawTextureNew(float u, float v, int widht, int height, Graph
         engine->callObserver->notify(CALL_DRAW_2D_TEXTURE, tex->GetName());
 }
 
-void NullRenderer::DrawTextureNewScaled(float u, float v, GraphicsImage* tex, Color colourmask) {
-    if (engine->callObserver)
-        engine->callObserver->notify(CALL_DRAW_2D_TEXTURE, tex->GetName());
-}
-
 void NullRenderer::DrawTextureCustomHeight(float u, float v, GraphicsImage *tex, int height) {
     if (engine->callObserver)
         engine->callObserver->notify(CALL_DRAW_2D_TEXTURE, tex->GetName());
