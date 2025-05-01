@@ -374,18 +374,15 @@ bool UI_OnKeyDown(PlatformKey key) {
             Pointi mousePos = EngineIocContainer::ResolveMouse()->position();
             int uClickX = mousePos.x;
             int uClickY = mousePos.y;
-            int v4 = win->pStartingPosActiveItem;
-            int v28 = v4 + win->pNumPresenceButton;
-            if (v4 < v4 + win->pNumPresenceButton) {
+            int currentButton = win->pStartingPosActiveItem;
+            int numButtons = currentButton + win->pNumPresenceButton;
+            if (currentButton < currentButton + win->pNumPresenceButton) {
                 while (true) {
-                    GUIButton *pButton = win->GetControl(v4);
-                    if (uClickX >= pButton->uX  // test for StatsTab in
-                                                // PlayerCreation Window
-                        && uClickX <= pButton->uZ &&
-                        uClickY >= pButton->uY && uClickY <= pButton->uW)
+                    GUIButton *pButton = win->GetControl(currentButton);
+                    if (pButton->Contains(uClickX, uClickY))
                         break;
-                    ++v4;
-                    if (v4 >= v28) {
+                    ++currentButton;
+                    if (currentButton >= numButtons) {
                         // v1 = 0;
                         // v2 = pCurrentFrameMessageQueue->uNumMessages;
                         // --i;
@@ -394,7 +391,7 @@ bool UI_OnKeyDown(PlatformKey key) {
                         // continue;
                     }
                 }
-                win->pCurrentPosActiveItem = v4;
+                win->pCurrentPosActiveItem = currentButton;
                 return true;
             }
             break;
