@@ -2024,19 +2024,19 @@ void UI_OnMouseRightClick(int mouse_x, int mouse_y) {
                             UIMSG_PlayerCreationRemoveDownSkill) {  // Sellected
                                                                     // skills info
                         pY = 0;
-                        if (pParty->pCharacters[pButton->msg_param].GetSkillIdxByOrder(pButton->msg - UIMSG_48) != CHARACTER_SKILL_INVALID) {
+                        if (pParty->pCharacters[pButton->msg_param].GetSkillIdxByOrder(pButton->msg - UIMSG_PlayerCreationFixedUpSkill) != CHARACTER_SKILL_INVALID) {
                             static std::string hint_reference;
                             hint_reference = CharacterUI_GetSkillDescText(
                                 pButton->msg_param,
                                 pParty->pCharacters[pButton->msg_param]
                                     .GetSkillIdxByOrder(pButton->msg -
-                                                        UIMSG_48));
+                                                        UIMSG_PlayerCreationFixedUpSkill));
 
                             popup_window.sHint = hint_reference;
                             pStr = localization->GetSkillName(
                                 pParty->pCharacters[pButton->msg_param]
                                     .GetSkillIdxByOrder(pButton->msg -
-                                                        UIMSG_48));
+                                                        UIMSG_PlayerCreationFixedUpSkill));
                         }
                     }
                 }

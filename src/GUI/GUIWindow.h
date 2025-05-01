@@ -92,9 +92,9 @@ class GUIWindow {
     WindowType eWindowType = WINDOW_null;
     int field_24 = 0;
     int pNumPresenceButton = 0;
-    int pCurrentPosActiveItem = 0;
     bool _msgOnKeyboardSelect = true;
     int _selectStep = 0;
+    int pCurrentPosActiveItem = 0;
     int pStartingPosActiveItem = 0;
     WindowInputStatus keyboard_input_status = WINDOW_INPUT_NONE;
     bool receives_keyboard_input = false;
