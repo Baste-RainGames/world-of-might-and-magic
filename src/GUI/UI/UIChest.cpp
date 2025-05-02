@@ -43,7 +43,7 @@ void GUIWindow_Chest::Update() {
         GraphicsImage *chest_background = assets->getImage_ColorKey(chestTable[chestDescId].textureName);
         render->DrawTextureNew(8 / 640.0f, 8 / 480.0f, chest_background);
 
-        render->SetUIClipRect({ chest_offs_x, chest_offs_y, 32 * chestWidthCells, 32 * chestHeghtCells });
+        render->SetUIClipRectScaled({ chest_offs_x, chest_offs_y, 32 * chestWidthCells, 32 * chestHeghtCells });
         CharacterUI_DrawPickedItemUnderlay({ chest_offs_x, chest_offs_y });
         render->ResetUIClipRect();
 

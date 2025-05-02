@@ -111,11 +111,11 @@ void Actor::DrawHealthBar(Actor *actor, GUIWindow *window) {
     // centralise for clipping and draw
     unsigned int uX = window->uFrameX + (signed int)(window->uFrameWidth - bar_length) / 2;
 
-    render->SetUIClipRect(Recti(uX, window->uFrameY + 32, bar_length, 20));
+    render->SetUIClipRectScaled(Recti(uX, window->uFrameY + 32, bar_length, 20));
     render->DrawTextureNew(uX / 640.0f, (window->uFrameY + 32) / 480.0f,
                                 game_ui_monster_hp_background);
 
-    render->SetUIClipRect(Recti(uX, window->uFrameY + 32, bar_filled_length, 20));
+    render->SetUIClipRectScaled(Recti(uX, window->uFrameY + 32, bar_filled_length, 20));
     render->DrawTextureNew(uX / 640.0f, (window->uFrameY + 34) / 480.0f,
                                 bar_image);
 
