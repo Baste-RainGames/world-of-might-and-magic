@@ -24,6 +24,8 @@ GUICredits::GUICredits() : GUIWindow(WINDOW_Credits, {0, 0}, render->GetRenderDi
     credit_window.uFrameHeight = 440;
     credit_window.uFrameX = 389;
     credit_window.uFrameY = 19;
+    
+    _startTime = pMiscTimer->time().realtimeMillisecondsFloat();
 
     int width = 250;
     int height = _fontQuick->GetStringHeight2(_fontCChar.get(), text, &credit_window, 0, 1) + 2 * credit_window.uFrameHeight;
@@ -48,24 +50,21 @@ void GUICredits::Update() {
     credit_window.uFrameX = 389;
     credit_window.uFrameY = 19;
 
-    auto renderScale = render->GetRenderScale();
+    pMiscTimer->tick(); // This one is used for animations.
+
+    auto currentTime = pMiscTimer->time().realtimeMillisecondsFloat();
+    auto animTime = currentTime - _startTime;
+    auto moveY = 25.0f * animTime;
 
     render->DrawTextureNew(0, 0, _mm6TitleTexture);
-    
-    render->SetUIClipRect(Recti(credit_window.uFrameX * renderScale.w,
-                                credit_window.uFrameY * renderScale.h,
-                                credit_window.uFrameWidth * renderScale.w,
-                                credit_window.uFrameHeight * renderScale.h));
-    render->DrawTextureNew(credit_window.uFrameX / 640.0f, (credit_window.uFrameY - _moveY) / 480.0f, _creditsTexture);
+    render->SetUIClipRectScaled(Recti(credit_window.uFrameX,
+                                      credit_window.uFrameY,
+                                      credit_window.uFrameWidth,
+                                      credit_window.uFrameHeight));
+    render->DrawTextureNew(credit_window.uFrameX / 640.0f, (credit_window.uFrameY - moveY) / 480.0f, _creditsTexture);
     render->ResetUIClipRect();
 
-    /*
-    render->DrawTextureOffset(credit_window.uFrameX, credit_window.uFrameY, 0, _moveY, _creditsTexture);
-    */
-
-    _moveY += 2.5; // TODO(captainurist): #time gotta be dt-based.
-
-    if (_moveY >= _creditsTexture->height()) {
+    if (moveY >= _creditsTexture->height()) {
         engine->_messageQueue->addMessageCurrentFrame(UIMSG_CreditsFinished);
     }
 }
