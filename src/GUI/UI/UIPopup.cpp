@@ -1837,13 +1837,13 @@ void UI_OnMouseRightClick(Pointi mousePos) {
 
     unsigned int pX = mousePos.x;
     unsigned int pY = mousePos.y;
+	auto screenSize = render->GetRenderDimensions();
 
     // if ( render->bWindowMode )
     {
         // Reset right click mode and restart timer if cursor went to the very edge of screen
         // To enter it again need to release right mouse button and press it again inside game screen
-        Pointi pt = Pointi(pX, pY);
-        if (pt.x < 1 || pt.y < 1 || pt.x > 638 || pt.y > 478) {
+        if (pX < 1 || pY < 1 || pX > screenSize.w - 2 || pY > screenSize.h - 2) { // Was pX > 638 || pY > 478 before render scale support
             back_to_game();
             return;
         }
@@ -2033,11 +2033,7 @@ void UI_OnMouseRightClick(Pointi mousePos) {
             popup_window.sHint.clear();
             pStr = "";
             for (GUIButton *pButton : pGUIWindow_CurrentMenu->vButtons) {
-                if (pButton->uButtonType == 1 && pButton->uButtonType != 3 &&
-                    (signed int)pX > (signed int)pButton->uX &&
-                    (signed int)pX < (signed int)pButton->uZ &&
-                    (signed int)pY > (signed int)pButton->uY &&
-                    (signed int)pY < (signed int)pButton->uW) {
+                if (pButton->Contains(pX, pY)) {
                     switch (pButton->msg) {
                         case UIMSG_0:  // stats info
                             popup_window.sHint = localization->GetAttributeDescription(static_cast<CharacterAttribute>(pButton->msg_param % 7));
