@@ -64,7 +64,7 @@ class OpenGLRenderer : public BaseRenderer {
     virtual void ScreenFade(Color color, float t) override;
 
     virtual void SetUIClipRectScaled(const Recti& rect) override;
-    virtual void SetUIClipRect(const Recti &rect) override;
+    virtual void SetUIClipRectUnscaled(const Recti &rect) override;
     virtual void ResetUIClipRect() override;
 
     virtual void DrawTextureNew(float u, float v, GraphicsImage *, Color colourmask = colorTable.White) override;

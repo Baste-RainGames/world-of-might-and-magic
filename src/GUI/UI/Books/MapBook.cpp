@@ -147,7 +147,7 @@ void DrawBook_Map_sub(int tl_x, int tl_y, int br_x, int br_y) {
 
     Vec2i screenCenter((tl_x + br_x) / 2, (tl_y + br_y) / 2);
 
-    render->SetUIClipRect(Recti(tl_x, tl_y, br_x - tl_x, br_y - tl_y));
+    render->SetUIClipRectScaled(Recti(tl_x, tl_y, br_x - tl_x, br_y - tl_y));
 
     Vec2f center(viewparams->sViewCenterX, viewparams->sViewCenterY);
 
