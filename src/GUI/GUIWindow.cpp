@@ -651,10 +651,10 @@ void SetUserInterface(PartyAlignment align) {
         game_ui_evtnpc = assets->getImage_ColorKey("evtnpc-c");
         ui_character_inventory_background = assets->getImage_ColorKey("fr_inven-c");
 
-        messagebox_corner_y = assets->getImage_Alpha("cornr_ll-c");
-        messagebox_corner_w = assets->getImage_Alpha("cornr_lr-c");
-        messagebox_corner_x = assets->getImage_Alpha("cornr_ul-c");
-        messagebox_corner_z = assets->getImage_Alpha("cornr_ur-c");
+        messagebox_corner_ll = assets->getImage_Alpha("cornr_ll-c");
+        messagebox_corner_lr = assets->getImage_Alpha("cornr_lr-c");
+        messagebox_corner_ul = assets->getImage_Alpha("cornr_ul-c");
+        messagebox_corner_ur = assets->getImage_Alpha("cornr_ur-c");
         messagebox_border_bottom = assets->getImage_Alpha("edge_btm-c");
         messagebox_border_left = assets->getImage_Alpha("edge_lf-c");
         messagebox_border_right = assets->getImage_Alpha("edge_rt-c");
@@ -700,10 +700,10 @@ void SetUserInterface(PartyAlignment align) {
         game_ui_evtnpc = assets->getImage_ColorKey("evtnpc");
         ui_character_inventory_background = assets->getImage_ColorKey("fr_inven");
 
-        messagebox_corner_y = assets->getImage_Alpha("cornr_ll");
-        messagebox_corner_w = assets->getImage_Alpha("cornr_lr");
-        messagebox_corner_x = assets->getImage_Alpha("cornr_ul");
-        messagebox_corner_z = assets->getImage_Alpha("cornr_ur");
+        messagebox_corner_ll = assets->getImage_Alpha("cornr_ll");
+        messagebox_corner_lr = assets->getImage_Alpha("cornr_lr");
+        messagebox_corner_ul = assets->getImage_Alpha("cornr_ul");
+        messagebox_corner_ur = assets->getImage_Alpha("cornr_ur");
         messagebox_border_bottom = assets->getImage_Alpha("edge_btm");
         messagebox_border_left = assets->getImage_Alpha("edge_lf");
         messagebox_border_right = assets->getImage_Alpha("edge_rt");
@@ -749,10 +749,10 @@ void SetUserInterface(PartyAlignment align) {
         game_ui_evtnpc = assets->getImage_ColorKey("evtnpc-b");
         ui_character_inventory_background = assets->getImage_ColorKey("fr_inven-b");
 
-        messagebox_corner_y = assets->getImage_Alpha("cornr_ll-b");
-        messagebox_corner_w = assets->getImage_Alpha("cornr_lr-b");
-        messagebox_corner_x = assets->getImage_Alpha("cornr_ul-b");
-        messagebox_corner_z = assets->getImage_Alpha("cornr_ur-b");
+        messagebox_corner_ll = assets->getImage_Alpha("cornr_ll-b");
+        messagebox_corner_lr = assets->getImage_Alpha("cornr_lr-b");
+        messagebox_corner_ul = assets->getImage_Alpha("cornr_ul-b");
+        messagebox_corner_ur = assets->getImage_Alpha("cornr_ur-b");
         messagebox_border_bottom = assets->getImage_Alpha("edge_btm-b");
         messagebox_border_left = assets->getImage_Alpha("edge_lf-b");
         messagebox_border_right = assets->getImage_Alpha("edge_rt-b");

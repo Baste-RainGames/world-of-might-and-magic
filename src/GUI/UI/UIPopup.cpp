@@ -48,10 +48,10 @@
 #include "Library/Logger/Logger.h"
 
 GraphicsImage *parchment = nullptr;
-GraphicsImage *messagebox_corner_x = nullptr;       // 5076AC
-GraphicsImage *messagebox_corner_y = nullptr;       // 5076B4
-GraphicsImage *messagebox_corner_z = nullptr;       // 5076A8
-GraphicsImage *messagebox_corner_w = nullptr;       // 5076B0
+GraphicsImage *messagebox_corner_ul = nullptr;       // 5076AC
+GraphicsImage *messagebox_corner_ll = nullptr;       // 5076B4
+GraphicsImage *messagebox_corner_ur = nullptr;       // 5076A8
+GraphicsImage *messagebox_corner_lr = nullptr;       // 5076B0
 GraphicsImage *messagebox_border_top = nullptr;     // 507698
 GraphicsImage *messagebox_border_bottom = nullptr;  // 5076A4
 GraphicsImage *messagebox_border_left = nullptr;    // 50769C
@@ -260,16 +260,17 @@ void DrawPopupWindow(unsigned int uX, unsigned int uY, unsigned int uWidth,
     int coord_y;             // [sp+34h] [bp-4h]@5
 
     if (!parchment) return;
-    
-    render->SetUIClipRectUnscaled(Recti(uX, uY, uWidth, uHeight));
 
-    Sizei renderdims = render->GetRenderDimensions();
+    render->SetUIClipRectScaled(Recti(uX, uY, uWidth, uHeight));
+
+    Sizei renderdims = { 640, 480 }; //render->GetRenderDimensions();
     float renwidth = renderdims.w;
     float renheight = renderdims.h;
 
     unsigned int parchment_width = parchment->width();
     unsigned int parchment_height = parchment->height();
 
+    // Draw parchment
     uNumTiles = uWidth / parchment_width;
     if (uWidth % parchment_width) ++uNumTiles;
     coord_y = uY;
@@ -283,29 +284,14 @@ void DrawPopupWindow(unsigned int uX, unsigned int uY, unsigned int uWidth,
         coord_y += parchment_height;
     }
 
-    render->DrawTextureNew(uX / renwidth, uY / renheight, messagebox_corner_x);
-    render->DrawTextureNew(
-        uX / renwidth, (uY + uHeight - messagebox_corner_y->height()) / renheight,
-        messagebox_corner_y);
-    render->DrawTextureNew(
-        (uX + uWidth - messagebox_corner_z->width()) / renwidth, uY / renheight,
-        messagebox_corner_z);
-    render->DrawTextureNew(
-        (uX + uWidth - messagebox_corner_z->width()) / renwidth,
-        (uY + uHeight - messagebox_corner_y->height()) / renheight,
-        messagebox_corner_w);
-
-    if (uWidth > messagebox_corner_x->width() + messagebox_corner_z->width()) {
-        render->SetUIClipRectUnscaled(Recti(uX + messagebox_corner_x->width(), uY,
-                              uWidth - messagebox_corner_z->width() - messagebox_corner_x->width(),
-                              uHeight));
-
+    // Draw horizontal borders
+    if (uWidth > messagebox_corner_ul->width() + messagebox_corner_ur->width()) {
         // horizontal borders
-        for (unsigned int x = uX + messagebox_corner_x->width();
-             x < uX + uWidth - messagebox_corner_x->width();
-             x += messagebox_border_top->width()) {
+        for (unsigned int x = uX + messagebox_corner_ul->width();
+            x < uX + uWidth - messagebox_corner_ul->width();
+            x += messagebox_border_top->width()) {
             render->DrawTextureNew(x / renwidth, uY / renheight,
-                                        messagebox_border_top);
+                messagebox_border_top);
             render->DrawTextureNew(
                 x / renwidth,
                 (uY + uHeight - messagebox_border_bottom->height()) / renheight,
@@ -313,23 +299,33 @@ void DrawPopupWindow(unsigned int uX, unsigned int uY, unsigned int uWidth,
         }
     }
 
-    // vertical borders
-    if (uHeight > messagebox_corner_x->height() + messagebox_corner_y->height()) {
-        render->SetUIClipRectUnscaled(Recti(uX, uY + messagebox_corner_x->height(),
-                              uWidth,
-                              uHeight - messagebox_corner_y->height() - messagebox_corner_x->height()));
-
-        for (unsigned int y = uY + messagebox_corner_x->height();
-             y < uY + uHeight - messagebox_corner_y->height();
-             y += messagebox_border_right->height()) {
+    // Draw vertical borders
+    if (uHeight > messagebox_corner_ul->height() + messagebox_corner_ll->height()) {
+        for (unsigned int y = uY + messagebox_corner_ul->height();
+            y < uY + uHeight - messagebox_corner_ll->height();
+            y += messagebox_border_right->height()) {
             render->DrawTextureNew(uX / renwidth, y / renheight,
-                                        messagebox_border_left);
+                messagebox_border_left);
             render->DrawTextureNew(
                 (uX + uWidth - messagebox_border_right->width() - 1) /
                 renwidth,
                 y / renheight, messagebox_border_right);
         }
     }
+
+    // Draw corners
+    render->DrawTextureNew(uX / renwidth, uY / renheight, messagebox_corner_ul);
+    render->DrawTextureNew(
+        uX / renwidth, (uY + uHeight - messagebox_corner_ll->height()) / renheight,
+        messagebox_corner_ll);
+    render->DrawTextureNew(
+        (uX + uWidth - messagebox_corner_ur->width()) / renwidth, uY / renheight,
+        messagebox_corner_ur);
+    render->DrawTextureNew(
+        (uX + uWidth - messagebox_corner_ur->width()) / renwidth,
+        (uY + uHeight - messagebox_corner_ll->height()) / renheight,
+        messagebox_corner_lr);
+
     render->ResetUIClipRect();
 }
 
