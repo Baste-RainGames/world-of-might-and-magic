@@ -2851,6 +2851,10 @@ void OpenGLRenderer::DrawTextureCustomHeight(float u, float v, GraphicsImage *im
     int width = img->width();
     int height = img->height();
 
+    width *= outputScale.w;
+    height *= outputScale.h;
+    custom_height *= outputScale.h;
+
     int x = u * outputRender.w;
     int y = v * outputRender.h + 0.5;
     int z = x + width;
