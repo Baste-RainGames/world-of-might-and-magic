@@ -91,6 +91,7 @@ class Renderer {
     virtual void BeginScene2D() = 0;
     virtual void ScreenFade(Color color, float t) = 0;
 
+    virtual void SetUIClipRectScaled(const Recti& rect) = 0;
     virtual void SetUIClipRect(const Recti &rect) = 0;
     virtual void ResetUIClipRect() = 0;
 

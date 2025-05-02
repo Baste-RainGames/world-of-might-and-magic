@@ -19,5 +19,5 @@ class GUICredits : public GUIWindow {
 
     GraphicsImage *_mm6TitleTexture = nullptr;
     GraphicsImage *_creditsTexture = nullptr;
-    float _moveY = 0;
+    float _startTime = 0;
 };

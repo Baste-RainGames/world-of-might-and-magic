@@ -66,6 +66,7 @@ void NullRenderer::Update_Texture(GraphicsImage *texture) {}
 void NullRenderer::BeginScene2D() {}
 void NullRenderer::ScreenFade(Color color, float t) {}
 
+void NullRenderer::SetUIClipRectScaled(const Recti& rect) {}
 void NullRenderer::SetUIClipRect(const Recti &rect) {}
 void NullRenderer::ResetUIClipRect() {}
 
