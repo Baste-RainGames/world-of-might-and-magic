@@ -63,6 +63,7 @@ class OpenGLRenderer : public BaseRenderer {
     virtual void BeginScene2D() override;
     virtual void ScreenFade(Color color, float t) override;
 
+    virtual void SetUIClipRectScaled(const Recti& rect) override;
     virtual void SetUIClipRect(const Recti &rect) override;
     virtual void ResetUIClipRect() override;
 

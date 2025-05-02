@@ -2677,6 +2677,23 @@ void OpenGLRenderer::SetBillboardBlendOptions(RenderBillboardD3D::OpacityType a1
     return;
 }
 
+// 640x480-based values
+void OpenGLRenderer::SetUIClipRectScaled(const Recti& rect) {
+    Sizef scale = render->GetRenderScale();
+
+    Recti scaledRect;
+    scaledRect.x = rect.x * scale.w;
+    scaledRect.y = rect.y * scale.h;
+    scaledRect.w = rect.w * scale.w;
+    scaledRect.h = rect.h * scale.h;
+
+    this->clipRect = scaledRect;
+
+    // invert glscissor co-ords 0,0 is BL
+    glScissor(scaledRect.x, outputRender.h - scaledRect.y - scaledRect.h, scaledRect.w, scaledRect.h);
+}
+
+// actual render -based values
 void OpenGLRenderer::SetUIClipRect(const Recti &rect) {
     this->clipRect = rect;
     glScissor(rect.x, outputRender.h - rect.y - rect.h, rect.w, rect.h);  // invert glscissor co-ords 0,0 is BL
@@ -2685,23 +2702,6 @@ void OpenGLRenderer::SetUIClipRect(const Recti &rect) {
 void OpenGLRenderer::ResetUIClipRect() {
     this->SetUIClipRect(Recti(Pointi(0, 0), outputRender));
 }
-
-/*
-void OpenGLRenderer::SetUIClipRect(const Recti &rect) {
-    Recti scaledRect;
-    scaledRect.x = rect.x * outputScale.w;
-    scaledRect.y = rect.y * outputScale.h;
-    scaledRect.w = rect.x * outputScale.w;
-    scaledRect.h = rect.x * outputScale.h;
-
-    this->clipRect = scaledRect;
-    glScissor(scaledRect.x, outputRender.h - scaledRect.y - scaledRect.h, scaledRect.w, scaledRect.h);  // invert glscissor co-ords 0,0 is BL
-}
-
-void OpenGLRenderer::ResetUIClipRect() {
-    this->SetUIClipRect(Recti(Pointi(0, 0), Sizei(640, 480));
-}
-*/
 
 void OpenGLRenderer::BeginScene2D() {
     // Setup for 2D
