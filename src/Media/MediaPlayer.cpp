@@ -533,6 +533,7 @@ class Movie : public IMovie {
                 video.decode_frame(&packet);
 
                 render->BeginScene2D();
+                render->ClearBlack();
                 // update pixels from buffer
                 tex->rgba() = RgbaImage::copy(tex->width(), tex->height(), static_cast<const Color *>(video.last_frame.data()));
 
