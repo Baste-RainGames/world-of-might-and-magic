@@ -357,7 +357,7 @@ int GUIFont::AlignText_Center(int width, std::string_view pString) {
 std::string GUIFont::FitTextInAWindow(std::string_view inString, int width, int uX, bool return_on_carriage) {
     // TODO(Baste): It seems like this function is called with uX as a 640/480-based value, and width an 
     // actual resolution width (eg 1920), but that could very well not always be the case!
-    width /= render->GetRenderScale().w; 
+    //width /= render->GetRenderScale().w; 
 
     assert(uX < width);
 
