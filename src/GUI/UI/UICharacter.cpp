@@ -1286,7 +1286,7 @@ void CharacterUI_InventoryTab_Draw(Character *player, bool Cover_Strip) {
         render->DrawTextureNew(8 / 640.0f, 305 / 480.0f, ui_character_inventory_background_strip);
     }
 
-    render->SetUIClipRect({ 14, 17, 32 * 14, 32 * 9 });
+    render->SetUIClipRectScaled({ 14, 17, 32 * 14, 32 * 9 });
     CharacterUI_DrawPickedItemUnderlay({ 14, 17 });
     render->ResetUIClipRect();
 

@@ -675,7 +675,7 @@ void BaseRenderer::DrawMonsterPortrait(const Recti &rc, SpriteFrame *Portrait, i
     rct.w = Portrait->hw_sprites[0]->uWidth;
     rct.h = Portrait->hw_sprites[0]->uHeight;
 
-    render->SetUIClipRect(rc);
+    render->SetUIClipRectScaled(rc);
     render->DrawImage(Portrait->hw_sprites[0]->texture, rct, Portrait->GetPaletteIndex());
     render->ResetUIClipRect();
 }

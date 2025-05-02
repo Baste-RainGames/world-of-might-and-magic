@@ -260,8 +260,8 @@ void DrawPopupWindow(unsigned int uX, unsigned int uY, unsigned int uWidth,
     int coord_y;             // [sp+34h] [bp-4h]@5
 
     if (!parchment) return;
-
-    render->SetUIClipRect(Recti(uX, uY, uWidth, uHeight));
+    
+    render->SetUIClipRectUnscaled(Recti(uX, uY, uWidth, uHeight));
 
     Sizei renderdims = render->GetRenderDimensions();
     float renwidth = renderdims.w;
@@ -296,7 +296,7 @@ void DrawPopupWindow(unsigned int uX, unsigned int uY, unsigned int uWidth,
         messagebox_corner_w);
 
     if (uWidth > messagebox_corner_x->width() + messagebox_corner_z->width()) {
-        render->SetUIClipRect(Recti(uX + messagebox_corner_x->width(), uY,
+        render->SetUIClipRectUnscaled(Recti(uX + messagebox_corner_x->width(), uY,
                               uWidth - messagebox_corner_z->width() - messagebox_corner_x->width(),
                               uHeight));
 
@@ -315,7 +315,7 @@ void DrawPopupWindow(unsigned int uX, unsigned int uY, unsigned int uWidth,
 
     // vertical borders
     if (uHeight > messagebox_corner_x->height() + messagebox_corner_y->height()) {
-        render->SetUIClipRect(Recti(uX, uY + messagebox_corner_x->height(),
+        render->SetUIClipRectUnscaled(Recti(uX, uY + messagebox_corner_x->height(),
                               uWidth,
                               uHeight - messagebox_corner_y->height() - messagebox_corner_x->height()));
 
@@ -413,7 +413,7 @@ void GameUI_DrawItemInfo(Item *inspect_item) {
 
     if (inspect_item->IsBroken()) {
         iteminfo_window.DrawMessageBox(0);
-        render->SetUIClipRect(Recti(
+        render->SetUIClipRectScaled(Recti(
             iteminfo_window.uFrameX + 12, iteminfo_window.uFrameY + 12,
             iteminfo_window.uFrameWidth - 24, iteminfo_window.uFrameHeight - 24));
         iteminfo_window.uFrameWidth -= 24;
@@ -443,7 +443,7 @@ void GameUI_DrawItemInfo(Item *inspect_item) {
 
     if (!inspect_item->IsIdentified()) {
         iteminfo_window.DrawMessageBox(0);
-        render->SetUIClipRect(Recti(
+        render->SetUIClipRectScaled(Recti(
             iteminfo_window.uFrameX + 12, iteminfo_window.uFrameY + 12,
             iteminfo_window.uFrameWidth - 24, iteminfo_window.uFrameHeight - 24));
         iteminfo_window.uFrameWidth -= 24;
@@ -582,7 +582,7 @@ void GameUI_DrawItemInfo(Item *inspect_item) {
     render->DrawTwodVerts();
 
     iteminfo_window.DrawMessageBox(0);
-    render->SetUIClipRect(Recti(
+    render->SetUIClipRectScaled(Recti(
         iteminfo_window.uFrameX + 12, iteminfo_window.uFrameY + 12,
         iteminfo_window.uFrameWidth - 24, iteminfo_window.uFrameHeight - 24));
     iteminfo_window.uFrameWidth -= 12;

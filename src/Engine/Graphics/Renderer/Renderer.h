@@ -92,7 +92,7 @@ class Renderer {
     virtual void ScreenFade(Color color, float t) = 0;
 
     virtual void SetUIClipRectScaled(const Recti& rect) = 0;
-    virtual void SetUIClipRect(const Recti &rect) = 0;
+    virtual void SetUIClipRectUnscaled(const Recti &rect) = 0;
     virtual void ResetUIClipRect() = 0;
 
     virtual void DrawTextureNew(float u, float v, GraphicsImage *img, Color colourmask32 = colorTable.White) = 0;

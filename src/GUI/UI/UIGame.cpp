@@ -826,7 +826,7 @@ void GameUI_DrawLifeManaBars() {
             }
             if (hpFillRatio > 0.0) {
                 int height = pTextureHealth->height() * hpFillRatio;
-                render->SetUIClipRect(Recti(
+                render->SetUIClipRectScaled(Recti(
                     v17 + pHealthBarPos[i],
                     pTextureHealth->height() - height + pHealthManaBarYPos,
                     pTextureHealth->width(),
@@ -843,7 +843,7 @@ void GameUI_DrawLifeManaBars() {
             int v17 = 0;
             if (i == 2) v17 = 1;
             int height = mpFillRatio * game_ui_bar_blue->height();
-            render->SetUIClipRect(Recti(
+            render->SetUIClipRectScaled(Recti(
                 v17 + pManaBarPos[i],
                 game_ui_bar_blue->height() - height + pHealthManaBarYPos,
                 game_ui_bar_blue->width(), height));
@@ -1402,7 +1402,7 @@ void GameUI_DrawMinimap(const Recti &rect, int zoom) {
     Color pColor;
 
     Pointi center = rect.center();
-    render->SetUIClipRect(rect);
+    render->SetUIClipRectScaled(rect);
 
     bool bWizardEyeActive = pParty->wizardEyeActive();
     CharacterSkillMastery uWizardEyeSkillLevel = pParty->wizardEyeSkillLevel();
@@ -1625,7 +1625,7 @@ void GameUI_DrawMinimap(const Recti &rect, int zoom) {
     if (rotate < 128 || rotate > 1920) arrow_idx = 7;
     render->DrawTextureNew((center.x - 3) / 640.0f, (center.y - 3) / 480.0f, game_ui_minimap_dirs[arrow_idx]);
 
-    render->SetUIClipRect(Recti(541, 0, 26, 480));
+    render->SetUIClipRectScaled(Recti(541, 0, 26, 480));
     render->DrawTextureNew((floorf((pParty->_viewYaw * 0.1171875) + 0.5f) + 285) / 640.0f,
         136 / 480.0f, game_ui_minimap_compass);
     render->ResetUIClipRect();

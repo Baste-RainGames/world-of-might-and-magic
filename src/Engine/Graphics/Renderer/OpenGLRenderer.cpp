@@ -2694,13 +2694,13 @@ void OpenGLRenderer::SetUIClipRectScaled(const Recti& rect) {
 }
 
 // actual render -based values
-void OpenGLRenderer::SetUIClipRect(const Recti &rect) {
+void OpenGLRenderer::SetUIClipRectUnscaled(const Recti &rect) {
     this->clipRect = rect;
     glScissor(rect.x, outputRender.h - rect.y - rect.h, rect.w, rect.h);  // invert glscissor co-ords 0,0 is BL
 }
 
 void OpenGLRenderer::ResetUIClipRect() {
-    this->SetUIClipRect(Recti(Pointi(0, 0), outputRender));
+    this->SetUIClipRectUnscaled(Recti(Pointi(0, 0), outputRender));
 }
 
 void OpenGLRenderer::BeginScene2D() {
@@ -5135,7 +5135,7 @@ void OpenGLRenderer::DrawTwodVerts() {
     glBindVertexArray(0);
 
     twodvertscnt = 0;
-    render->SetUIClipRect(savedClipRect);
+    render->SetUIClipRectUnscaled(savedClipRect);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
