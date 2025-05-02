@@ -452,11 +452,11 @@ class GameConfig : public Config {
 
         Bool VSync = {this, "vsync", false, "Enable synchronization of framerate with monitor vertical refresh rate."};
 
-        Int ViewPortX1 = {this, "viewport_x1", 8, "Viewport top-left offset."};
-        Int ViewPortY1 = {this, "viewport_y1", 8, "Viewport top-left offset."};
+        Int ViewPortX1 = {this, "viewport_x1", 8, "Viewport top-left x offset (relative to 640x480)."};
+        Int ViewPortY1 = {this, "viewport_y1", 8, "Viewport top-left y offset (relative to 640x480)."};
 
-        Int ViewPortX2 = {this, "viewport_x2", 172, "Viewport bottom-right offset."};
-        Int ViewPortY2 = {this, "viewport_y2", 128, "Viewport bottom-right offset."};
+        Int ViewPortX2 = {this, "viewport_x2", 172, "Viewport bottom-right x offset (relative to 640x480)."};
+        Int ViewPortY2 = {this, "viewport_y2", 128, "Viewport bottom-right y offset (relative to 640x480)."};
 
         Int RenderWidth = {this, "render_width", 640, &ValidateRenderWidth, "Internal rendered resolution width"};
         Int RenderHeight = {this, "render_height", 480, &ValidateRenderHeight, "Internal rendered resolution height"};

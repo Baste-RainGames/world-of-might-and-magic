@@ -253,7 +253,10 @@ void GUIWindow_Dialogue::Update() {
 
     // Message window(Окно сообщения)----
     if (!dialogue_string.empty()) {
-        window.uFrameWidth = game_viewport_width;
+        auto renderScale = render->GetRenderScale();
+
+        float width = game_viewport_width / renderScale.w;
+        window.uFrameWidth = width;
         window.uFrameZ = 452;
         GUIFont *font = assets->pFontArrus.get();
         pTextHeight = assets->pFontArrus->CalcTextHeight(dialogue_string, window.uFrameWidth, 13) + 7;

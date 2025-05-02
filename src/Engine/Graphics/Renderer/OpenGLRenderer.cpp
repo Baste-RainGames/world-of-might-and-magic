@@ -4741,10 +4741,10 @@ bool OpenGLRenderer::Reinitialize(bool firstInit) {
     BaseRenderer::Reinitialize(firstInit);
 
     if (!firstInit) {
-        game_viewport_x = viewparams->uScreen_topL_X = engine->config->graphics.ViewPortX1.value(); //8
-        game_viewport_y = viewparams->uScreen_topL_Y = engine->config->graphics.ViewPortY1.value(); //8
-        game_viewport_z = viewparams->uScreen_BttmR_X = outputRender.w - engine->config->graphics.ViewPortX2.value(); //468;
-        game_viewport_w = viewparams->uScreen_BttmR_Y = outputRender.h - engine->config->graphics.ViewPortY2.value(); //352;
+        game_viewport_x = viewparams->uScreen_topL_X = engine->config->graphics.ViewPortX1.value() * outputScale.w; //8
+        game_viewport_y = viewparams->uScreen_topL_Y = engine->config->graphics.ViewPortY1.value() * outputScale.h; //8
+        game_viewport_z = viewparams->uScreen_BttmR_X = outputRender.w - (engine->config->graphics.ViewPortX2.value() * outputScale.w); //468;
+        game_viewport_w = viewparams->uScreen_BttmR_Y = outputRender.h - (engine->config->graphics.ViewPortY2.value() * outputScale.h); //352;
 
         game_viewport_width = game_viewport_z - game_viewport_x;
         game_viewport_height = game_viewport_w - game_viewport_y;
