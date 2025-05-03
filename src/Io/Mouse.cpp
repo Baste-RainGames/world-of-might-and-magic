@@ -85,6 +85,11 @@ void Io::Mouse::AllocCursorSystemMem() {
 
 void *Io::Mouse::DoAllocCursorMem() { return nullptr; }
 
+Pointi Io::Mouse::GetCursorPosScaled() {
+    Sizef scale = render->GetRenderScale();
+    return Pointi(this->uMouseX / scale.w, this->uMouseY / scale.h);
+}
+
 Pointi Io::Mouse::GetCursorPos() {
     return Pointi(this->uMouseX, this->uMouseY);
 }
