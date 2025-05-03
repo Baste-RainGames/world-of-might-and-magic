@@ -19,6 +19,8 @@ class Mouse {
     }
 
     Pointi position() const;
+    Pointi scaledPosition() const;
+
     void setPosition(Pointi position);
 
     void RemoveHoldingItem();

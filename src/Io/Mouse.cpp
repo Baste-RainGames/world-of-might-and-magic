@@ -34,6 +34,13 @@ Pointi Io::Mouse::position() const {
     return _position;
 }
 
+Pointi Io::Mouse::scaledPosition() const
+{
+    Sizef scale = render->GetRenderScale();
+    return Pointi(_position.x / scale.w, _position.y / scale.h);
+}
+
+
 void Io::Mouse::setPosition(Pointi position) {
     if (_mouseLook) {
         _mouseLookChange = position - _position;
