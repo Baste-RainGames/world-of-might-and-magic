@@ -64,6 +64,7 @@ struct stat_coord {
     int16_t height;
 };
 
+// Rects for status menu popups
 std::array<stat_coord, 26> stat_string_coord =  // 4E2940
 {{
      {0x1A, 0x39, 0xDC, 0x12},   {0x1A, 0x4A, 0xDC, 0x12},
@@ -189,7 +190,7 @@ uint64_t GetExperienceRequiredForLevel(int level);
  * @offset 0x4179BC
  */
 static void CharacterUI_DrawTooltip(std::string_view title, std::string_view content) {
-    Pointi pt = mouse->GetCursorPos();
+    Pointi pt = mouse->GetCursorPosScaled();
 
     GUIWindow popup_window;
     popup_window.uFrameWidth = 384;
@@ -1073,7 +1074,8 @@ void CharacterUI_StatsTab_ShowHint() {
     std::string pHourWord;  // ecx@17
     std::string pDayWord;   // eax@20
 
-    Pointi pt = mouse->GetCursorPos();
+    Pointi pt = mouse->GetCursorPosScaled();
+
     for (pStringNum = 0; pStringNum < stat_string_coord.size(); ++pStringNum) {
         if (pt.x >= stat_string_coord[pStringNum].x &&
             pt.x <= stat_string_coord[pStringNum].x +
@@ -1759,16 +1761,15 @@ void UI_OnMouseRightClick(int mouse_x, int mouse_y) {
     if (current_screen_type == SCREEN_VIDEO || GetCurrentMenuID() == MENU_MAIN)
         return;
 
-
-    unsigned int pX = mouse_x;
-    unsigned int pY = mouse_y;
-    auto screenSize = render->GetRenderDimensions();
+    auto scale = render->GetRenderScale();
+    unsigned int pX = mouse_x / scale.w;
+    unsigned int pY = mouse_y / scale.h;
 
     // if ( render->bWindowMode )
     {
         // Reset right click mode and restart timer if cursor went to the very edge of screen
         // To enter it again need to release right mouse button and press it again inside game screen
-        if (pX < 1 || pY < 1 || pX > screenSize.w - 2 || pY > screenSize.h - 2) { // Was pX > 638 || pY > 478 before render scale support
+        if (pX < 1 || pY < 1 || pX > 638 || pY > 478) {
             back_to_game();
             return;
         }

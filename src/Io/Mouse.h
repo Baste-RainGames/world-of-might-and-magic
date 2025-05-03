@@ -28,6 +28,7 @@ class Mouse {
     void ClearCursor();
     void AllocCursorSystemMem();
     void *DoAllocCursorMem();
+    Pointi GetCursorPosScaled();
     Pointi GetCursorPos();
     void Initialize();
     void DrawCursor();
