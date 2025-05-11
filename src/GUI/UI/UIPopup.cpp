@@ -1051,7 +1051,7 @@ std::string CharacterUI_GetSkillDescText(int uPlayerID, CharacterSkillType uPlay
 void CharacterUI_SkillsTab_ShowHint() {
     int pX = 0;
     int pY = 0;
-    mouse->GetClickPos(&pX, &pY);
+    mouse->GetClickPosScaled(&pX, &pY);
 
     if (pX < 24 || pX > 455 || pY < 18 || pY > 36) {
         for (GUIButton *pButton : pGUIWindow_CurrentMenu->vButtons) {

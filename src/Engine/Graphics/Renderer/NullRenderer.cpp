@@ -97,6 +97,7 @@ void NullRenderer::BeginTextNew(GraphicsImage *main, GraphicsImage *shadow) {}
 void NullRenderer::EndTextNew() {}
 void NullRenderer::DrawTextNew(int x, int y, int w, int h, float u1, float v1, float u2, float v2, int isshadow, Color colour) {}
 
+void NullRenderer::FillRectFastScaled(int uX, int uY, int uWidth, int uHeight, Color uColor32) {}
 void NullRenderer::FillRectFast(int uX, int uY, int uWidth, int uHeight, Color uColor32) {}
 
 void NullRenderer::DrawOutdoorBuildings() {}

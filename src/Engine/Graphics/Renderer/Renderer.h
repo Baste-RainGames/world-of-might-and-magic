@@ -117,9 +117,8 @@ class Renderer {
     virtual void EndTextNew() = 0;
     virtual void DrawTextNew(int x, int y, int w, int h, float u1, float v1, float u2, float v2, int isshadow, Color colour) = 0;
 
-    virtual void FillRectFast(int uX, int uY,
-                              int uWidth, int uHeight,
-                              Color uColor32) = 0;
+    virtual void FillRectFastScaled(int uX, int uY, int uWidth, int uHeight, Color uColor32) = 0;
+    virtual void FillRectFast(int uX, int uY, int uWidth, int uHeight, Color uColor32) = 0;
 
     virtual void DrawOutdoorBuildings() = 0;
 
