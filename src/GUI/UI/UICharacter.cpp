@@ -766,7 +766,7 @@ TargetedSpellUI *CastSpellInfo::GetCastSpellInInventoryWindow() {
 static int drawSkillTable(Character *player, int x, int y, const std::initializer_list<CharacterSkillType> skill_list,
                           int right_margin, std::string_view skill_group_name) {
     int y_offset = y;
-    Pointi pt = mouse->position();
+    Pointi pt = mouse->scaledPosition();
 
     auto str = fmt::format("{}\r{:03}{}", skill_group_name, right_margin, localization->GetString(LSTR_LEVEL));
     pGUIWindow_CurrentMenu->DrawText(assets->pFontArrus.get(), {x, y}, ui_character_header_text_color, str);
@@ -1308,7 +1308,7 @@ void CharacterUI_InventoryTab_Draw(Character *player, bool Cover_Strip) {
 void CharacterUI_DrawPickedItemUnderlay(Vec2i offset) {
     if (pParty->pPickedItem.itemId != ITEM_NULL) {
         // draw shadow of position
-        Pointi mousePos = mouse->position();
+        Pointi mousePos = mouse->scaledPosition();
         Pointi inventoryPos = mapToInventoryGrid(mousePos + mouse->pickedItemOffset, offset);
         Sizei itemSize = pParty->pPickedItem.inventorySize();
 

@@ -4644,6 +4644,15 @@ void OpenGLRenderer::_shutdownImGui() {
     ImGui::DestroyContext();
 }
 
+void OpenGLRenderer::FillRectFastScaled(int x, int y, int width, int height, Color color) {
+    x *= outputScale.w;
+    y *= outputScale.h;
+    width *= outputScale.w;
+    height *= outputScale.h;
+
+    FillRectFast(x, y, width, height, color);
+}
+
 void OpenGLRenderer::FillRectFast(int x, int y, int width, int height, Color color) {
     Colorf cf = color.toColorf();
 

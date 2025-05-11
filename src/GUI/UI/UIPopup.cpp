@@ -1120,7 +1120,7 @@ std::string CharacterUI_GetSkillDescText(int uPlayerID, CharacterSkillType uPlay
 }
 
 void CharacterUI_SkillsTab_ShowHint() {
-    Pointi mousePos = mouse->position();
+    Pointi mousePos = mouse->scaledPosition();
     int pX = mousePos.x;
     int pY = mousePos.y;
 

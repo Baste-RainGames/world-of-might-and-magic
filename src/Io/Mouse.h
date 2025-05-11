@@ -18,8 +18,8 @@ class Mouse {
         pCursorBitmap2_sysmem = nullptr;
     }
 
-    Pointi position() const;
-    Pointi scaledPosition() const;
+    Pointi position() const; // Position in actual screen coordinates
+    Pointi scaledPosition() const; // 640x480-relative position
 
     void setPosition(Pointi position);
 
@@ -47,7 +47,7 @@ class Mouse {
     GraphicsImage *cursor_img = nullptr;
     uint16_t *pCursorBitmap_sysmem = nullptr;
     uint8_t *pCursorBitmap2_sysmem = nullptr;
-    Pointi pickedItemOffset = {}; // Offset of the item's bitmap relative to cursor position, always non-positive.
+    Pointi pickedItemOffset = {}; // Offset of the item's bitmap relative to cursor position, always non-positive, 640x480-relative
     Pointi pCursorBitmapPos{};
     std::string cursor_name;
     Pointi _position;

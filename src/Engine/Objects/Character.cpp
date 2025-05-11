@@ -6533,7 +6533,7 @@ void Character::OnInventoryLeftClick() {
         return;
     }
 
-    Pointi mousePos = mouse->position();
+    Pointi mousePos = mouse->scaledPosition();
     Pointi inventoryPos = mapToInventoryGrid(mousePos + mouse->pickedItemOffset, Pointi(14, 17));
     int invMatrixIndex = inventoryPos.x + (INVENTORY_SLOTS_WIDTH * inventoryPos.y);
 

@@ -202,9 +202,12 @@ void Io::Mouse::DrawPickedItem() {
     GraphicsImage *pTexture = assets->getImage_Alpha(pParty->pPickedItem.GetIconName());
     if (!pTexture) return;
 
-    Pointi mousePos = this->position();
-    float posX = (mousePos.x + pickedItemOffset.x) / 640.0f;
-    float posY = (mousePos.y + pickedItemOffset.y) / 480.0f;
+    auto scale = render->GetRenderScale();
+    auto dimensions = render->GetRenderDimensions();
+
+    // _position is in render-dimension scale, pickedItemOffset is in 640-scale
+    float posX = (_position.x + scale.w * pickedItemOffset.x) / (float) dimensions.w;
+    float posY = (_position.y + scale.h * pickedItemOffset.y) / (float) dimensions.h;
 
     if (pParty->pPickedItem.IsBroken()) {
         render->DrawTransparentRedShade(posX, posY, pTexture);
