@@ -84,6 +84,7 @@ class OpenGLRenderer : public BaseRenderer {
     virtual void EndTextNew() override;
     virtual void DrawTextNew(int x, int y, int w, int h, float u1, float v1, float u2, float v2, int isshadow, Color colour) override;
 
+    virtual void FillRectFastScaled(int x, int y, int width, int height, Color color) override;
     virtual void FillRectFast(int x, int y, int width, int height, Color color) override;
 
     virtual void DrawOutdoorBuildings() override;
@@ -151,7 +152,7 @@ class OpenGLRenderer : public BaseRenderer {
     void _set_ortho_projection(bool gameviewport = false);
     void _set_ortho_modelview();
 
-    Recti clipRect;
+    Recti clipRect; // in actual screen size, not 640x480
 
     int GL_lastboundtex{};
 

@@ -6535,7 +6535,7 @@ void Character::OnInventoryLeftClick() {
 
     int pY;
     int pX;
-    mouse->GetClickPos(&pX, &pY);
+    mouse->GetClickPosScaled(&pX, &pY);
 
     int inventoryXCoord = (pX + mouse->pickedItemOffset.x - 14) / 32;
     int inventoryYCoord = (pY + mouse->pickedItemOffset.y - 17) / 32;

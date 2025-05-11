@@ -30,11 +30,6 @@
 
 std::shared_ptr<Io::Mouse> mouse = nullptr;
 
-void Io::Mouse::GetClickPos(int *pX, int *pY) {
-    *pX = uMouseX;
-    *pY = uMouseY;
-}
-
 void Io::Mouse::RemoveHoldingItem() {
     pParty->pPickedItem.Reset();
     if (this->cursor_name != "MICON2") {
@@ -92,6 +87,17 @@ Pointi Io::Mouse::GetCursorPosScaled() {
 
 Pointi Io::Mouse::GetCursorPos() {
     return Pointi(this->uMouseX, this->uMouseY);
+}
+
+void Io::Mouse::GetClickPosScaled(int* pX, int* pY) {
+    Sizef scale = render->GetRenderScale();
+    *pX = uMouseX / scale.w;
+    *pY = uMouseY / scale.h;
+}
+
+void Io::Mouse::GetClickPos(int* pX, int* pY) {
+    *pX = uMouseX;
+    *pY = uMouseY;
 }
 
 void Io::Mouse::Initialize() {
@@ -196,8 +202,12 @@ void Io::Mouse::DrawPickedItem() {
     GraphicsImage *pTexture = assets->getImage_Alpha(pParty->pPickedItem.GetIconName());
     if (!pTexture) return;
 
-    float posX = (uMouseX + pickedItemOffset.x) / 640.0f;
-    float posY = (uMouseY + pickedItemOffset.y) / 480.0f;
+    auto scale = render->GetRenderScale();
+    auto dimensions = render->GetRenderDimensions();
+
+    // uMouseX is in render-dimension scale, pickedItemOffset is in 640-scale
+    float posX = (uMouseX + scale.w * pickedItemOffset.x) / (float) dimensions.w;
+    float posY = (uMouseY + scale.h * pickedItemOffset.y) / (float) dimensions.h;
 
     if (pParty->pPickedItem.IsBroken()) {
         render->DrawTransparentRedShade(posX, posY, pTexture);

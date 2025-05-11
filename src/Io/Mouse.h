@@ -20,7 +20,6 @@ class Mouse {
         uMouseY = 0;
     }
 
-    void GetClickPos(int *pX, int *pY);
     void RemoveHoldingItem();
     void SetCursorBitmapFromItemID(ItemId uItemID);
     void SetCurrentCursorBitmap();
@@ -28,6 +27,8 @@ class Mouse {
     void ClearCursor();
     void AllocCursorSystemMem();
     void *DoAllocCursorMem();
+    void GetClickPosScaled(int* pX, int* pY);
+    void GetClickPos(int *pX, int *pY); // TODO(Baste) GetClickPos and GetCursorPos returns the exact same data, so one should be dumped.
     Pointi GetCursorPosScaled();
     Pointi GetCursorPos();
     void Initialize();
@@ -48,7 +49,7 @@ class Mouse {
     GraphicsImage *cursor_img = nullptr;
     uint16_t *pCursorBitmap_sysmem = nullptr;
     uint8_t *pCursorBitmap2_sysmem = nullptr;
-    Pointi pickedItemOffset = {}; // Offset of the item's bitmap relative to cursor position, always non-positive.
+    Pointi pickedItemOffset = {}; // Offset of the item's bitmap relative to cursor position, always non-positive, 640x480-relative
     Pointi pCursorBitmapPos{};
     std::string cursor_name;
     int uMouseX = 0;

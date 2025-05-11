@@ -766,7 +766,7 @@ TargetedSpellUI *CastSpellInfo::GetCastSpellInInventoryWindow() {
 static int drawSkillTable(Character *player, int x, int y, const std::initializer_list<CharacterSkillType> skill_list,
                           int right_margin, std::string_view skill_group_name) {
     int y_offset = y;
-    Pointi pt = mouse->GetCursorPos();
+    Pointi pt = mouse->GetCursorPosScaled();
 
     auto str = fmt::format("{}\r{:03}{}", skill_group_name, right_margin, localization->GetString(LSTR_LEVEL));
     pGUIWindow_CurrentMenu->DrawText(assets->pFontArrus.get(), {x, y}, ui_character_header_text_color, str);
@@ -1309,13 +1309,13 @@ void CharacterUI_DrawPickedItemUnderlay(Vec2i offset) {
         // draw shadow of position
         int pY;
         int pX;
-        mouse->GetClickPos(&pX, &pY);
+        mouse->GetClickPosScaled(&pX, &pY);
 
         int inventoryXCoord = (pX + mouse->pickedItemOffset.x - offset.x) / 32;
         int inventoryYCoord = (pY + mouse->pickedItemOffset.y - offset.y) / 32;
         Sizei itemSize = pParty->pPickedItem.inventorySize();
 
-        render->FillRectFast(inventoryXCoord * 32 + offset.x, inventoryYCoord * 32 + offset.y, itemSize.w * 32, itemSize.h * 32, Color(96, 96, 96, 128));
+        render->FillRectFastScaled(inventoryXCoord * 32 + offset.x, inventoryYCoord * 32 + offset.y, itemSize.w * 32, itemSize.h * 32, Color(96, 96, 96, 128));
     }
 }
 
