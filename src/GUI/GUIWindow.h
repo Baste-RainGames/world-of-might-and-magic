@@ -91,14 +91,18 @@ class GUIWindow {
     int uFrameW = 0;
     WindowType eWindowType = WINDOW_null;
     int field_24 = 0;
-    int pNumPresenceButton = 0;
     bool _msgOnKeyboardSelect = true;
     int _selectStep = 0;
-    int pCurrentPosActiveItem = 0;
-    int pStartingPosActiveItem = 0;
     WindowInputStatus keyboard_input_status = WINDOW_INPUT_NONE;
-    bool receives_keyboard_input = false;
+    bool _receivesKeyboardInput = false;
     std::string sHint;
+
+    // How many of the buttons in vButtons are normal clickable buttons.
+    // Things like "press escape to go back" or "click in the shop purchase menu" 
+    // is still a "button", but it's not iterated over for checking mouse position.
+    int _numClickable = 0;
+    int _firstClickable = 0;
+    int _hoveredClickable = 0;
     std::vector<GUIButton*> vButtons;
 
     std::shared_ptr<Io::Mouse> mouse = nullptr;

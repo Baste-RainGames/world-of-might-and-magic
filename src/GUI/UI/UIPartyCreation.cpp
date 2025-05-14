@@ -79,10 +79,10 @@ void CreateParty_EventLoop() {
         switch (msg) {
         case UIMSG_PlayerCreation_SelectAttribute:
         {
-            auto selectedAttributeIndex = (pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem) % 7;
-            auto selectedCharacterIndex = pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+            auto selectedAttributeIndex = (pGUIWindow_CurrentMenu->_hoveredClickable - pGUIWindow_CurrentMenu->_firstClickable) % 7;
+            auto selectedCharacterIndex = pGUIWindow_CurrentMenu->_firstClickable + 7 * param;
 
-            pGUIWindow_CurrentMenu->pCurrentPosActiveItem = selectedCharacterIndex + selectedAttributeIndex;
+            pGUIWindow_CurrentMenu->_hoveredClickable = selectedCharacterIndex + selectedAttributeIndex;
             uPlayerCreationUI_SelectedCharacter = param;
             pAudioPlayer->playUISound(SOUND_SelectingANewCharacter);
             break;
@@ -129,11 +129,11 @@ void CreateParty_EventLoop() {
             pParty->pCharacters[param].SetInitialStats();
             pParty->pCharacters[param].SetSexByVoice();
             pParty->pCharacters[param].RandomizeName();
-            pGUIWindow_CurrentMenu->pCurrentPosActiveItem =
-                (pGUIWindow_CurrentMenu->pCurrentPosActiveItem -
-                    pGUIWindow_CurrentMenu->pStartingPosActiveItem) %
+            pGUIWindow_CurrentMenu->_hoveredClickable =
+                (pGUIWindow_CurrentMenu->_hoveredClickable -
+                    pGUIWindow_CurrentMenu->_firstClickable) %
                 7 +
-                pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+                pGUIWindow_CurrentMenu->_firstClickable + 7 * param;
             uPlayerCreationUI_SelectedCharacter = param;
             new OnButtonClick({pCreationUI_BtnPressLeft[param]->uX, pCreationUI_BtnPressLeft[param]->uY}, {0, 0},
                 pCreationUI_BtnPressLeft[param], std::string(), false);
@@ -151,11 +151,11 @@ void CreateParty_EventLoop() {
             pParty->pCharacters[param].SetInitialStats();
             pParty->pCharacters[param].SetSexByVoice();
             pParty->pCharacters[param].RandomizeName();
-            pGUIWindow_CurrentMenu->pCurrentPosActiveItem =
-                (pGUIWindow_CurrentMenu->pCurrentPosActiveItem -
-                    pGUIWindow_CurrentMenu->pStartingPosActiveItem) %
+            pGUIWindow_CurrentMenu->_hoveredClickable =
+                (pGUIWindow_CurrentMenu->_hoveredClickable -
+                    pGUIWindow_CurrentMenu->_firstClickable) %
                 7 +
-                pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+                pGUIWindow_CurrentMenu->_firstClickable + 7 * param;
             uPlayerCreationUI_SelectedCharacter = param;
             new OnButtonClick({pCreationUI_BtnPressRight[param]->uX, pCreationUI_BtnPressRight[param]->uY}, {0, 0},
                 pCreationUI_BtnPressRight[param], std::string(), false);
@@ -166,13 +166,13 @@ void CreateParty_EventLoop() {
         case UIMSG_PlayerCreationClickPlus:
             new OnButtonClick2({613, 393}, {0, 0}, pPlayerCreationUI_BtnPlus, std::string(), false);
             pPlayer[uPlayerCreationUI_SelectedCharacter].IncreaseAttribute(
-                static_cast<CharacterAttribute>((pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem) % 7));
+                static_cast<CharacterAttribute>((pGUIWindow_CurrentMenu->_hoveredClickable - pGUIWindow_CurrentMenu->_firstClickable) % 7));
             pAudioPlayer->playUISound(SOUND_ClickMinus);
             break;
         case UIMSG_PlayerCreationClickMinus:
             new OnButtonClick2({523, 393}, {0, 0}, pPlayerCreationUI_BtnMinus, std::string(), false);
             pPlayer[uPlayerCreationUI_SelectedCharacter].DecreaseAttribute(
-                static_cast<CharacterAttribute>((pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem) % 7));
+                static_cast<CharacterAttribute>((pGUIWindow_CurrentMenu->_hoveredClickable - pGUIWindow_CurrentMenu->_firstClickable) % 7));
             pAudioPlayer->playUISound(SOUND_ClickPlus);
             break;
         case UIMSG_PlayerCreationSelectActiveSkill:
@@ -200,8 +200,8 @@ void CreateParty_EventLoop() {
         case UIMSG_PlayerCreationRemoveUpSkill:
         {
             int v4;
-            v4 = pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem;
-            pGUIWindow_CurrentMenu->pCurrentPosActiveItem = v4 % 7 + pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+            v4 = pGUIWindow_CurrentMenu->_hoveredClickable - pGUIWindow_CurrentMenu->_firstClickable;
+            pGUIWindow_CurrentMenu->_hoveredClickable = v4 % 7 + pGUIWindow_CurrentMenu->_firstClickable + 7 * param;
             if (pPlayer[param].GetSkillIdxByOrder(2) != CHARACTER_SKILL_INVALID) {
                 pParty->pCharacters[param].pActiveSkills[pPlayer[param].GetSkillIdxByOrder(2)] = CombinedSkillValue::none();
             }
@@ -210,8 +210,8 @@ void CreateParty_EventLoop() {
         case UIMSG_PlayerCreationRemoveDownSkill:
         {
             int v4;
-            v4 = pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem;
-            pGUIWindow_CurrentMenu->pCurrentPosActiveItem = v4 % 7 + pGUIWindow_CurrentMenu->pStartingPosActiveItem + 7 * param;
+            v4 = pGUIWindow_CurrentMenu->_hoveredClickable - pGUIWindow_CurrentMenu->_firstClickable;
+            pGUIWindow_CurrentMenu->_hoveredClickable = v4 % 7 + pGUIWindow_CurrentMenu->_firstClickable + 7 * param;
             if (pPlayer[param].GetSkillIdxByOrder(3) != CHARACTER_SKILL_INVALID)
                 pParty->pCharacters[param].pActiveSkills[pPlayer[param].GetSkillIdxByOrder(3)] = CombinedSkillValue::none();
         } break;
@@ -293,7 +293,7 @@ void GUIWindow_PartyCreation::Update() {
     render->DrawTextureNew((sky_slider_anim_timer - (int)oldDims.w) / oldDims.w, 2 / oldDims.h, ui_partycreation_sky_scroller);
     render->DrawTextureNew(0, 0, ui_partycreation_top);
 
-    uPlayerCreationUI_SelectedCharacter = (pGUIWindow_CurrentMenu->pCurrentPosActiveItem - pGUIWindow_CurrentMenu->pStartingPosActiveItem) / 7;
+    uPlayerCreationUI_SelectedCharacter = (pGUIWindow_CurrentMenu->_hoveredClickable - pGUIWindow_CurrentMenu->_firstClickable) / 7;
     switch (uPlayerCreationUI_SelectedCharacter) {
         case 0:
             pX = 12;
@@ -325,7 +325,7 @@ void GUIWindow_PartyCreation::Update() {
 
     // arrows
     render->DrawTextureNew(pX / oldDims.w, 29 / oldDims.h, ui_partycreation_character_frame);
-    uPosActiveItem = pGUIWindow_CurrentMenu->GetControl(pGUIWindow_CurrentMenu->pCurrentPosActiveItem);
+    uPosActiveItem = pGUIWindow_CurrentMenu->GetControl(pGUIWindow_CurrentMenu->_hoveredClickable);
     // cycle arrows backwards
     int arrowAnimTextureNum = ui_partycreation_arrow_l.size() - 1 - (pMiscTimer->time().realtimeMilliseconds() % ARROW_SPIN_PERIOD_MS) / (ARROW_SPIN_PERIOD_MS / ui_partycreation_arrow_l.size());
     render->DrawTextureNew((uPosActiveItem->uZ - 4) / oldDims.w, uPosActiveItem->uY / oldDims.h, ui_partycreation_arrow_l[arrowAnimTextureNum]);

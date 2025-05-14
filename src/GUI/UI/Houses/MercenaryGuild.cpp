@@ -38,7 +38,7 @@ void GUIWindow_MercenaryGuild::houseSpecificDialogue() {
             // 171 looks like Mercenary Stronghold message from NPCNews.txt in MM6
             int pTextHeight = assets->pFontArrus->CalcTextHeight(pNPCTopics[171].pText, dialog_window.uFrameWidth, 0);
             dialog_window.DrawTitleText(assets->pFontArrus.get(), 0, (212 - pTextHeight) / 2 + 101, colorTable.PaleCanary, pNPCTopics[171].pText, 3);
-            pDialogueWindow->pNumPresenceButton = 0;
+            pDialogueWindow->_numClickable = 0;
             return;
         }
         learnSkillsDialogue(colorTable.PaleCanary);
