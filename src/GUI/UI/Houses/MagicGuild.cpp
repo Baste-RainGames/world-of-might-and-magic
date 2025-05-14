@@ -145,7 +145,7 @@ void GUIWindow_MagicGuild::mainDialogue() {
         // you must be a member
         int textHeight = assets->pFontArrus->CalcTextHeight(pNPCTopics[121].pText, working_window.uFrameWidth, 0);
         working_window.DrawTitleText(assets->pFontArrus.get(), 0, (212 - textHeight) / 2 + 101, colorTable.PaleCanary, pNPCTopics[121].pText, 3);
-        pDialogueWindow->pNumPresenceButton = 0;
+        pDialogueWindow->_numClickable = 0;
         return;
     }
 
@@ -156,8 +156,8 @@ void GUIWindow_MagicGuild::mainDialogue() {
     std::vector<std::string> optionsText;
 
     bool haveLearnableSkills = false;
-    int buttonsLimit = pDialogueWindow->pStartingPosActiveItem + pDialogueWindow->pNumPresenceButton;
-    for (int i = pDialogueWindow->pStartingPosActiveItem; i < buttonsLimit; ++i) {
+    int buttonsLimit = pDialogueWindow->_firstClickable + pDialogueWindow->_numClickable;
+    for (int i = pDialogueWindow->_firstClickable; i < buttonsLimit; ++i) {
         if (pDialogueWindow->GetControl(i)->msg_param == std::to_underlying(DIALOGUE_GUILD_BUY_BOOKS)) {
             optionsText.push_back(localization->GetString(LSTR_BUY_SPELLS));
         } else {

@@ -161,18 +161,18 @@ GUIButton *GUI_HandleHotkey(PlatformKey hotkey) {
 }
 
 void GUIWindow::setKeyboardControlGroup(int buttonsCount, bool msgOnSelect, int selectStep, int initialPosition) {
-    this->pNumPresenceButton = buttonsCount;
+    this->_numClickable = buttonsCount;
     this->_msgOnKeyboardSelect = msgOnSelect;
     this->_selectStep = selectStep;
 
     if (buttonsCount) {
-        this->pCurrentPosActiveItem = initialPosition;
-        this->pStartingPosActiveItem = initialPosition;
-        this->receives_keyboard_input = true;
+        this->_hoveredClickable = initialPosition;
+        this->_firstClickable = initialPosition;
+        this->_receivesKeyboardInput = true;
     } else {
-        this->pCurrentPosActiveItem = 0;
-        this->pStartingPosActiveItem = 0;
-        this->receives_keyboard_input = false;
+        this->_hoveredClickable = 0;
+        this->_firstClickable = 0;
+        this->_receivesKeyboardInput = false;
     }
 }
 
@@ -444,7 +444,7 @@ GUIWindow::GUIWindow(WindowType windowType, Pointi position, Sizei dimensions, s
 
     this->sHint = hint;
 
-    this->receives_keyboard_input = false;
+    this->_receivesKeyboardInput = false;
 }
 
 void DialogueEnding() {

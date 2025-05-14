@@ -277,7 +277,7 @@ void GUIWindow_Dialogue::Update() {
     window.uFrameX = SIDE_TEXT_BOX_POS_X;
     window.uFrameWidth = SIDE_TEXT_BOX_WIDTH;
     window.uFrameZ = SIDE_TEXT_BOX_POS_Z;
-    for (int i = window.pStartingPosActiveItem; i < window.pStartingPosActiveItem + window.pNumPresenceButton; ++i) {
+    for (int i = window._firstClickable; i < window._firstClickable + window._numClickable; ++i) {
         GUIButton *pButton = window.GetControl(i);
         if (!pButton) {
             break;
@@ -311,7 +311,7 @@ void GUIWindow_Dialogue::Update() {
     // Install Buttons(Установка кнопок)--------
     int index = 0;
     int all_text_height = 0;
-    for (int i = pDialogueWindow->pStartingPosActiveItem; i < pDialogueWindow->pStartingPosActiveItem + pDialogueWindow->pNumPresenceButton; ++i) {
+    for (int i = pDialogueWindow->_firstClickable; i < pDialogueWindow->_firstClickable + pDialogueWindow->_numClickable; ++i) {
         GUIButton *pButton = pDialogueWindow->GetControl(i);
         if (!pButton)
             break;
@@ -324,7 +324,7 @@ void GUIWindow_Dialogue::Update() {
         if (v45 > SIDE_TEXT_BOX_MAX_SPACING)
             v45 = SIDE_TEXT_BOX_MAX_SPACING;
         int v42 = (SIDE_TEXT_BOX_BODY_TEXT_HEIGHT - v45 * index - all_text_height) / 2 - v45 / 2 + SIDE_TEXT_BOX_BODY_TEXT_OFFSET;
-        for (int i = pDialogueWindow->pStartingPosActiveItem; i < pDialogueWindow->pNumPresenceButton + pDialogueWindow->pStartingPosActiveItem; ++i) {
+        for (int i = pDialogueWindow->_firstClickable; i < pDialogueWindow->_numClickable + pDialogueWindow->_firstClickable; ++i) {
             GUIButton *pButton = pDialogueWindow->GetControl(i);
             if (!pButton)
                 break;
@@ -334,7 +334,7 @@ void GUIWindow_Dialogue::Update() {
             v42 = pButton->uY + pTextHeight - 1;
             pButton->uW = v42;
             Color pTextColor = ui_game_dialogue_option_normal_color;
-            if (pDialogueWindow->pCurrentPosActiveItem == i) {
+            if (pDialogueWindow->_hoveredClickable == i) {
                 pTextColor = ui_game_dialogue_option_highlight_color;
             }
             window.DrawTitleText(assets->pFontArrus.get(), 0, pButton->uY, pTextColor, pButton->sLabel, 3);
