@@ -1513,7 +1513,7 @@ void ShowPopupShopSkills() {
     int pX = mousePos.x;
     int pY = mousePos.y;
 
-    if (pDialogueWindow && pDialogueWindow->pNumPresenceButton != 0) {
+    if (pDialogueWindow && pDialogueWindow->_numClickable != 0) {
         for (GUIButton *pButton : pDialogueWindow->vButtons) {
             if (pX >= pButton->uX && pX < pButton->uZ && pY >= pButton->uY && pY < pButton->uW) {
                 if (IsSkillLearningDialogue((DialogueId)pButton->msg_param)) {

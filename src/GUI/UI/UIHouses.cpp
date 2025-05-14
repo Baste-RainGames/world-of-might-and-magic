@@ -515,8 +515,6 @@ void selectHouseNPCDialogueOption(DialogueId topic) {
 }
 
 void updateHouseNPCTopics(int npc) {
-    int num_menu_buttons = 0;
-
     currentHouseNpc = npc;
     if (houseNpcs[npc].type == HOUSE_TRANSITION) {
         pDialogueWindow->Release();
@@ -545,7 +543,7 @@ void updateHouseNPCTopics(int npc) {
 }
 
 void selectProprietorDialogueOption(DialogueId option) {
-    if (!pDialogueWindow || !pDialogueWindow->pNumPresenceButton) {
+    if (!pDialogueWindow || !pDialogueWindow->_numClickable) {
         return;
     }
 
@@ -763,8 +761,8 @@ void GUIWindow_House::drawNpcHouseGreetingMessage(NPCData *npcData) {
 void GUIWindow_House::drawNpcHouseDialogueOptions(NPCData* npcData) const {
     std::vector<std::string> optionsText;
 
-    int buttonLimit = pDialogueWindow->pStartingPosActiveItem + pDialogueWindow->pNumPresenceButton;
-    for (int i = pDialogueWindow->pStartingPosActiveItem; i < buttonLimit; ++i) {
+    int buttonLimit = pDialogueWindow->_firstClickable + pDialogueWindow->_numClickable;
+    for (int i = pDialogueWindow->_firstClickable; i < buttonLimit; ++i) {
         GUIButton *pButton = pDialogueWindow->GetControl(i);
         DialogueId topic = (DialogueId)pButton->msg_param;
         std::string str = npcDialogueOptionString(topic, npcData);
@@ -817,10 +815,10 @@ bool GUIWindow_House::checkIfPlayerCanInteract() {
     }
 
     if (pParty->activeCharacter().CanAct()) {
-        pDialogueWindow->pNumPresenceButton = _savedButtonsNum;
+        pDialogueWindow->_numClickable = _savedButtonsNum;
         return true;
     } else {
-        pDialogueWindow->pNumPresenceButton = 0;
+        pDialogueWindow->_numClickable = 0;
         GUIWindow window = *window_SpeakInHouse;
         window.uFrameX = SIDE_TEXT_BOX_POS_X;
         window.uFrameWidth = SIDE_TEXT_BOX_WIDTH;
@@ -839,7 +837,7 @@ void GUIWindow_House::drawOptions(std::vector<std::string> &optionsText, Color s
     window.uFrameWidth = SIDE_TEXT_BOX_WIDTH;
     window.uFrameZ = SIDE_TEXT_BOX_POS_Z;
 
-    assert(optionsText.size() == pDialogueWindow->pNumPresenceButton);
+    assert(optionsText.size() == pDialogueWindow->_numClickable);
 
     int allTextHeight = 0;
     int activeOptions = 0;
@@ -860,12 +858,12 @@ void GUIWindow_House::drawOptions(std::vector<std::string> &optionsText, Color s
         offset += (SIDE_TEXT_BOX_BODY_TEXT_HEIGHT - topOptionShift - spacing * activeOptions - allTextHeight) / 2 - spacing / 2 + SIDE_TEXT_BOX_BODY_TEXT_OFFSET;
     }
 
-    for (int i = 0; i < pDialogueWindow->pNumPresenceButton; ++i) {
-        int buttonIndex = i + pDialogueWindow->pStartingPosActiveItem;
+    for (int i = 0; i < pDialogueWindow->_numClickable; ++i) {
+        int buttonIndex = i + pDialogueWindow->_firstClickable;
         GUIButton *button = pDialogueWindow->GetControl(buttonIndex);
 
         if (!optionsText[i].empty()) {
-            Color textColor = (pDialogueWindow->pCurrentPosActiveItem == buttonIndex) ? selectColor : colorTable.White;
+            Color textColor = (pDialogueWindow->_hoveredClickable == buttonIndex) ? selectColor : colorTable.White;
             int textHeight = assets->pFontArrus->CalcTextHeight(optionsText[i], window.uFrameWidth, 0);
             button->uY = spacing + offset;
             button->uHeight = textHeight;
@@ -994,7 +992,7 @@ void GUIWindow_House::initializeProprietorDialogue() {
         }
         pDialogueWindow->setKeyboardControlGroup(optionList.size(), false, 0, 2);
     }
-    _savedButtonsNum = pDialogueWindow->pNumPresenceButton;
+    _savedButtonsNum = pDialogueWindow->_numClickable;
 }
 
 void GUIWindow_House::initializeNPCDialogue(int npc) {
@@ -1012,7 +1010,7 @@ void GUIWindow_House::initializeNPCDialogueButtons(std::vector<DialogueId> optio
         }
         pDialogueWindow->setKeyboardControlGroup(optionList.size(), false, 0, 2);
     }
-    _savedButtonsNum = pDialogueWindow->pNumPresenceButton;
+    _savedButtonsNum = pDialogueWindow->_numClickable;
 }
 
 void GUIWindow_House::learnSkillsDialogue(Color selectColor) {
@@ -1023,8 +1021,8 @@ void GUIWindow_House::learnSkillsDialogue(Color selectColor) {
     bool haveLearnableSkills = false;
     std::vector<std::string> optionsText;
     int cost = PriceCalculator::skillLearningCostForPlayer(&pParty->activeCharacter(), houseTable[houseId()]);
-    int buttonsLimit = pDialogueWindow->pStartingPosActiveItem + pDialogueWindow->pNumPresenceButton;
-    for (int i = pDialogueWindow->pStartingPosActiveItem; i < buttonsLimit; i++) {
+    int buttonsLimit = pDialogueWindow->_firstClickable + pDialogueWindow->_numClickable;
+    for (int i = pDialogueWindow->_firstClickable; i < buttonsLimit; i++) {
         CharacterSkillType skill = GetLearningDialogueSkill((DialogueId)pDialogueWindow->GetControl(i)->msg_param);
         if (skillMaxMasteryPerClass[pParty->activeCharacter().classType][skill] != CHARACTER_SKILL_MASTERY_NONE &&
             !pParty->activeCharacter().pActiveSkills[skill]) {
