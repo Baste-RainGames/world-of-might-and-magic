@@ -1169,8 +1169,7 @@ void GameUI_WritePointedObjectStatusString() {
             for (GUIButton *pButton : win->vButtons) {
                 switch (pButton->uButtonType) {
                     case 1:
-                        if (pX >= pButton->uX && pX <= pButton->uZ &&
-                            pY >= pButton->uY && pY <= pButton->uW) {
+                        if (pButton->Contains(pX, pY)) {
                             pMessageType3 = (UIMessageType)pButton->uData;
                             if (pMessageType3 == 0) {  // For books
                                 engine->_statusBar->setPermanent(pButton->sLabel);
@@ -1183,14 +1182,15 @@ void GameUI_WritePointedObjectStatusString() {
                         break;
                     case 2:  // hovering over portraits
                         if (pButton->uWidth != 0 && pButton->uHeight != 0) {
-                            unsigned distW = pX - pButton->uX;
-                            unsigned distY = pY - pButton->uY;
+                            Sizef scale = render->GetRenderScale();
+                            double scaledMouseX = pX / scale.w;
+                            double scaledMouseY = pY / scale.h;
 
-                            double ratioX = 1.0 * (distW * distW) /
-                                            (pButton->uWidth * pButton->uWidth);
-                            double ratioY =
-                                1.0 * (distY * distY) /
-                                (pButton->uHeight * pButton->uHeight);
+                            double distX = scaledMouseX - pButton->uX;
+                            double distY = scaledMouseY - pButton->uY;
+
+                            double ratioX = 1.0 * (distX * distX) / (pButton->uWidth * pButton->uWidth);
+                            double ratioY = 1.0 * (distY * distY) / (pButton->uHeight * pButton->uHeight);
 
                             if (ratioX + ratioY < 1.0) {
                                 engine->_statusBar->setPermanent(pButton->sLabel);  // for character name
