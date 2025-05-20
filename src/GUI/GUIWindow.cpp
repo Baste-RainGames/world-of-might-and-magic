@@ -1121,7 +1121,7 @@ void UI_Create() {
 
     if (pPrimaryWindow) pPrimaryWindow->Release();
 
-    pPrimaryWindow = new GUIWindow(WINDOW_GameUI, {0, 0}, render->GetRenderDimensions());
+    pPrimaryWindow = new GUIWindow(WINDOW_GameUI, {0, 0}, { 640, 480 });
     pPrimaryWindow->CreateButton({7, 8}, {460, 343}, 1, 0, UIMSG_MouseLeftClickInGame, 0);
 
     pPrimaryWindow->CreateButton("Game_Character1", {61, 424}, {31, 40}, 2, 94, UIMSG_SelectCharacter, 1, Io::InputAction::SelectChar1);  // buttons for portraits
