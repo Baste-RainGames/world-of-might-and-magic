@@ -516,7 +516,7 @@ void GUIFont::DrawText(GUIWindow *window, Pointi position, Color color, std::str
                     auto out_x_before = out_x;
 
                     auto line_width = this->GetLineWidth(&string_base[charIndex]);
-                    out_x = (window->uFrameZ / render->GetRenderScale().w) - line_width - left_margin;
+                    out_x = window->uFrameZ - line_width - left_margin;
                     out_y = position.y + window->uFrameY;
 
                     if (maxHeight != 0) {

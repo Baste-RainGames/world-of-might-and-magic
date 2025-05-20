@@ -11,7 +11,7 @@
 #include "GUI/GUIFont.h"
 #include "GUI/GUIMessageQueue.h"
 
-GUICredits::GUICredits() : GUIWindow(WINDOW_Credits, {0, 0}, render->GetRenderDimensions()) {
+GUICredits::GUICredits() : GUIWindow(WINDOW_Credits, {0, 0}, { 640, 480 }) {
     _fontQuick = GUIFont::LoadFont("quick.fnt", "FONTPAL");
     _fontCChar = GUIFont::LoadFont("cchar.fnt", "FONTPAL");
 
