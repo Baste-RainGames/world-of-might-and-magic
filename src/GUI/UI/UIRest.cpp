@@ -72,7 +72,7 @@ static void calculateRequiredFood() {
 }
 
 GUIWindow_Rest::GUIWindow_Rest()
-    : GUIWindow(WINDOW_Rest, {0, 0}, render->GetRenderDimensions()) {
+    : GUIWindow(WINDOW_Rest, {0, 0}, { 640, 480 }) {
     prepareToLoadRestUI();
     calculateRequiredFood();
 

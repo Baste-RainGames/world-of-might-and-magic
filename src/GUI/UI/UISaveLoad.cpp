@@ -46,7 +46,7 @@ GraphicsImage *saveload_ui_x_d = nullptr;
 
 static GraphicsImage *scrollstop = nullptr;
 
-GUIWindow_Save::GUIWindow_Save() : GUIWindow(WINDOW_Save, {0, 0}, render->GetRenderDimensions()) {
+GUIWindow_Save::GUIWindow_Save() : GUIWindow(WINDOW_Save, {0, 0}, { 640, 480 }) {
     saveload_ui_loadsave = assets->getImage_ColorKey("loadsave");
     saveload_ui_save_up = assets->getImage_ColorKey("save_up");
     saveload_ui_saveu = assets->getImage_ColorKey("LS_saveU");

@@ -77,7 +77,7 @@ void GUIWindow_Book::Release() {
     GUIWindow::Release();
 }
 
-GUIWindow_Book::GUIWindow_Book() : GUIWindow(WINDOW_Book, {0, 0}, render->GetRenderDimensions()) {
+GUIWindow_Book::GUIWindow_Book() : GUIWindow(WINDOW_Book, {0, 0}, { 640, 480 }) {
     initializeFonts();
     CreateButton({475, 445}, {158, 34}, 1, 0, UIMSG_Escape, 0, Io::InputAction::Invalid, localization->GetString(LSTR_EXIT_DIALOGUE));
     current_screen_type = SCREEN_BOOKS;

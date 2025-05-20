@@ -43,7 +43,7 @@ void CreateWinnerCertificate() {
     GraphicsImage *background = assets->getImage_PCXFromIconsLOD("winbg.pcx");
     render->DrawTextureNew(0, 0, background);
 
-    GUIWindow *tempwindow_SpeakInHouse = new GUIWindow(WINDOW_Unknown, { 0, 0 }, render->GetRenderDimensions());
+    GUIWindow *tempwindow_SpeakInHouse = new GUIWindow(WINDOW_Unknown, { 0, 0 }, { 640, 480 });
     GUIWindow pWindow;
     pWindow.uFrameX = 75;
     pWindow.uFrameY = 60;

@@ -548,7 +548,7 @@ int savedInventoryLeftClickButtonY;
 int savedInventoryLeftClickButtonX;
 
 GUIWindow_CharacterRecord::GUIWindow_CharacterRecord(int uActiveCharacter, ScreenType screen)
-    : GUIWindow(WINDOW_CharacterRecord, {0, 0}, render->GetRenderDimensions()) {
+    : GUIWindow(WINDOW_CharacterRecord, {0, 0}, { 640, 480 }) {
     pEventTimer->setPaused(true);
     bRingsShownInCharScreen = false;
     CharacterUI_LoadPaperdollTextures();

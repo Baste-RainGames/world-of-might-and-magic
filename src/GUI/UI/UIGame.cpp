@@ -174,7 +174,7 @@ extern std::map<InputAction, bool> key_map_conflicted;  // 506E6C
 extern std::map<InputAction, PlatformKey> curr_key_map;
 
 GUIWindow_GameMenu::GUIWindow_GameMenu()
-    : GUIWindow(WINDOW_GameMenu, {0, 0}, render->GetRenderDimensions()) {
+    : GUIWindow(WINDOW_GameMenu, {0, 0}, { 640, 480 }) {
     game_ui_menu_options = assets->getImage_ColorKey("options");
     game_ui_menu_new = assets->getImage_ColorKey("new1");
     game_ui_menu_load = assets->getImage_ColorKey("load1");
@@ -266,7 +266,7 @@ static Color GameMenuUI_GetKeyBindingColor(InputAction action) {
 }
 
 GUIWindow_GameKeyBindings::GUIWindow_GameKeyBindings()
-    : GUIWindow(WINDOW_KeyMappingOptions, {0, 0}, render->GetPresentDimensions()) {
+    : GUIWindow(WINDOW_KeyMappingOptions, {0, 0}, { 640, 480 }) {
     game_ui_options_controls[0] = assets->getImage_ColorKey("optkb");
     game_ui_options_controls[1] = assets->getImage_ColorKey("optkb_h");
     game_ui_options_controls[2] = assets->getImage_ColorKey("resume1");
@@ -362,7 +362,7 @@ void GUIWindow_GameKeyBindings::Update() {
 }
 
 GUIWindow_GameVideoOptions::GUIWindow_GameVideoOptions()
-    : GUIWindow(WINDOW_VideoOptions, {0, 0}, render->GetRenderDimensions()) {
+    : GUIWindow(WINDOW_VideoOptions, {0, 0}, { 640, 480 }) {
     // -------------------------------------
     // GameMenuUI_OptionsVideo_Load --- part
     game_ui_menu_options_video_background = assets->getImage_ColorKey("optvid");
