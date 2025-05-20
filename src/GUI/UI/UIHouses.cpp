@@ -36,7 +36,7 @@
 #include "GUI/UI/Houses/Temple.h"
 #include "GUI/UI/Houses/Training.h"
 #include "GUI/UI/Houses/Transport.h"
-#include "GUI/UI/Houses/MercenaryGuild.h"
+#include "GUI/UI/Houses/NormalHouse.h"
 #include "GUI/UI/Houses/TownHall.h"
 #include "GUI/UI/Houses/Shops.h"
 
@@ -645,8 +645,8 @@ void createHouseUI(HouseId houseId) {
       case HOUSE_TYPE_JAIL:
         window_SpeakInHouse = new GUIWindow_Jail(houseId);
         break;
-      case HOUSE_TYPE_MERCENARY_GUILD:
-        window_SpeakInHouse = new GUIWindow_MercenaryGuild(houseId);
+      case HOUSE_TYPE_NORMAL_HOUSE:
+        window_SpeakInHouse = new GUIWindow_NormalHouse(houseId);
         break;
       case HOUSE_TYPE_WEAPON_SHOP:
         window_SpeakInHouse = new GUIWindow_WeaponShop(houseId);
