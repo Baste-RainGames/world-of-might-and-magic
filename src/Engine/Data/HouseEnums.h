@@ -603,7 +603,7 @@ enum class HouseType : uint16_t {
     HOUSE_TYPE_SELF_GUILD = 15, // Exist only in MM6 and MM8
     HOUSE_TYPE_MIRRORED_PATH_GUILD = 16, // Mirrored Path Guild of Light and Dark (not made it into any released game)
     HOUSE_TYPE_TOWN_HALL = 17, // Thieves guild in MM6.
-    HOUSE_TYPE_MERCENARY_GUILD = 18, // TODO(captainurist): Somehow this is the type of almost all houses in the game. So, not a mercenary guild?
+    HOUSE_TYPE_NORMAL_HOUSE = 18,
     HOUSE_TYPE_TOWN_HALL_MM6 = 19,
     HOUSE_TYPE_THRONE_ROOM = 20,
     HOUSE_TYPE_TAVERN = 21,

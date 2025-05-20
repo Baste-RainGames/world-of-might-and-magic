@@ -247,7 +247,7 @@ int runHouseIdCodeGen(const CodeGenOptions &options, GameResourceManager *resour
             map.insert(i, "", "Unused.");
         } else if (toUpperCaseEnum(desc.name) == fmt::format("HOUSE_{}", std::to_underlying(i))) {
             map.insert(i, "", fmt::format("Used in MAP_{}, named \"{}\", looks totally like a placeholder...", mapName, desc.name));
-        } else if (desc.uType == HOUSE_TYPE_HOUSE || desc.uType == HOUSE_TYPE_MERCENARY_GUILD) {
+        } else if (desc.uType == HOUSE_TYPE_HOUSE || desc.uType == HOUSE_TYPE_NORMAL_HOUSE) {
             map.insert(i, fmt::format("{}_{}", mapName, toUpperCaseEnum(desc.name)), "");
         } else {
             map.insert(i, fmt::format("{}_{}", toString(desc.uType), mapName), fmt::format("\"{}\".", trim(desc.name)));
