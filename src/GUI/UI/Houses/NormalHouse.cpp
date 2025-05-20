@@ -1,4 +1,4 @@
-#include "GUI/UI/Houses/MercenaryGuild.h"
+#include "GUI/UI/Houses/NormalHouse.h"
 
 #include "GUI/UI/UIStatusBar.h"
 #include "GUI/GUIMessageQueue.h"
@@ -15,7 +15,7 @@
 
 std::array<int16_t, 49> word_4F0754;
 
-void GUIWindow_MercenaryGuild::houseSpecificDialogue() {
+void GUIWindow_NormalHouse::houseSpecificDialogue() {
     GUIWindow dialog_window = *this;
     dialog_window.uFrameX = SIDE_TEXT_BOX_POS_X;
     dialog_window.uFrameWidth = SIDE_TEXT_BOX_WIDTH;
@@ -78,6 +78,6 @@ void GUIWindow_MercenaryGuild::houseSpecificDialogue() {
     engine->_messageQueue->addMessageCurrentFrame(UIMSG_Escape, 1, 0);
 }
 
-void GUIWindow_MercenaryGuild::houseDialogueOptionSelected(DialogueId option) {
+void GUIWindow_NormalHouse::houseDialogueOptionSelected(DialogueId option) {
     _currentDialogue = option;
 }

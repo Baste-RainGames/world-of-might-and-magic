@@ -5,10 +5,10 @@
 
 void MercenaryGuildDialog();
 
-class GUIWindow_MercenaryGuild : public GUIWindow_House {
+class GUIWindow_NormalHouse : public GUIWindow_House {
  public:
-    explicit GUIWindow_MercenaryGuild(HouseId houseId) : GUIWindow_House(houseId) {}
-    virtual ~GUIWindow_MercenaryGuild() {}
+    explicit GUIWindow_NormalHouse(HouseId houseId) : GUIWindow_House(houseId) {}
+    virtual ~GUIWindow_NormalHouse() {}
 
     /**
      * @offset 0x4B6478

@@ -138,7 +138,7 @@ void initializeHouses(const Blob &houses) {
                         houseTable[houseId].uType = HOUSE_TYPE_TOWN_HALL; //TODO: Is this right and not Merc Guild (18)?
                         break;
                     }
-                    houseTable[houseId].uType = HOUSE_TYPE_MERCENARY_GUILD;
+                    houseTable[houseId].uType = HOUSE_TYPE_NORMAL_HOUSE;
                 } break;
 
                 case 4:

@@ -162,7 +162,7 @@ int PriceCalculator::skillLearningCostForPlayer(const Character *player, const H
     bool isGuild = house.uType >= HOUSE_TYPE_FIRE_GUILD && house.uType <= HOUSE_TYPE_SELF_GUILD;
     // guilds use different multiplier for skill learning
     int baseTeachPrice = (isGuild ? house.fPriceMultiplier : house.flt_24) * 500.0;
-    if (house.uType == HOUSE_TYPE_MERCENARY_GUILD) {
+    if (house.uType == HOUSE_TYPE_NORMAL_HOUSE) {
         baseTeachPrice = 250;
     }
     int effectivePrice = applyMerchantDiscount(player, baseTeachPrice);
