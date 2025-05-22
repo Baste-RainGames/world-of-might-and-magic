@@ -4763,7 +4763,8 @@ bool OpenGLRenderer::Reinitialize(bool firstInit) {
         viewparams->uSomeZ = viewparams->uScreen_BttmR_X;
         viewparams->uSomeW = viewparams->uScreen_BttmR_Y;
 
-        pViewport->SetScreen(viewparams->uScreen_topL_X, viewparams->uScreen_topL_Y,
+        pViewport->SetScreen(viewparams->uScreen_topL_X, 
+                            viewparams->uScreen_topL_Y,
                             viewparams->uScreen_BttmR_X,
                             viewparams->uScreen_BttmR_Y);
     }
