@@ -350,9 +350,11 @@ bool AudioPlayer::loadSoundDataSource(SoundInfo* si) {
     if (!si->dataSource) {
         Blob buffer;
 
-        if (si->sName == "") {  // enable this for bonus sound effects
+        if (si->sName == "") {  // enable this for bonus sound effects. 
             //logger->Info("AudioPlayer: trying to load bonus sound {}", eSoundID);
             //buffer = LoadSound(int(eSoundID));
+            logger->info("AudioPlayer: asked to play sound with no name, with ID {}. Code to do that has been deleted.", std::to_underlying(si->uSoundID));
+            return false;
         } else {
             buffer = LoadSound(si->sName);
         }
