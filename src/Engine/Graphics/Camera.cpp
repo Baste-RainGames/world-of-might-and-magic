@@ -462,12 +462,12 @@ void Camera3D::Project(RenderVertexSoft *pVertices, unsigned int uNumVertices, b
                              viewscalefactor * (double)v->vWorldViewPosition.z;
 
         if (fit_into_viewport) {
-            fitted_x = (double)(signed int)pViewport->uViewportBR_X;
+            fitted_x = (double)(signed int)pViewport->uScreen_BR_X;
             if (fitted_x >= pVertices[i].vWorldViewProjX)
                 temp_r = pVertices[i].vWorldViewProjX;
             else
                 temp_r = fitted_x;
-            temp_l = (double)(signed int)pViewport->uViewportTL_X;
+            temp_l = (double)(signed int)pViewport->uScreen_TL_X;
             if (temp_l <= temp_r) {
                 if (fitted_x >= pVertices[i].vWorldViewProjX)
                     fitted_x = pVertices[i].vWorldViewProjX;
@@ -476,12 +476,12 @@ void Camera3D::Project(RenderVertexSoft *pVertices, unsigned int uNumVertices, b
             }
             pVertices[i].vWorldViewProjX = fitted_x;
 
-            fitted_y = (double)(signed int)pViewport->uViewportBR_Y;
+            fitted_y = (double)(signed int)pViewport->uScreen_BR_Y;
             if (fitted_y >= pVertices[i].vWorldViewProjY)
                 temp_b = pVertices[i].vWorldViewProjY;
             else
                 temp_b = fitted_y;
-            temp_t = (double)(signed int)pViewport->uViewportTL_Y;
+            temp_t = (double)(signed int)pViewport->uScreen_TL_Y;
             if (temp_t <= temp_b) {
                 if (fitted_y >= pVertices[i].vWorldViewProjY)
                     fitted_y = pVertices[i].vWorldViewProjY;

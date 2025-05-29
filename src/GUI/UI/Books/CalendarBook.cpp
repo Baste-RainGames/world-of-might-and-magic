@@ -70,7 +70,7 @@ void GUIWindow_CalendarBook::Update() {
 
     GUIWindow calendar_window;
 
-    render->DrawTextureNew(pViewport->uViewportTL_X / 640.0f, pViewport->uViewportTL_Y / 480.0f, ui_book_calendar_background);
+    render->DrawTextureNew(pViewport->uScreen_TL_X / 640.0f, pViewport->uScreen_TL_Y / 480.0f, ui_book_calendar_background);
     CivilTime time = pParty->GetPlayingTime().toCivilTime();
 
     calendar_window.uFrameX = game_viewport_x;

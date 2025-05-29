@@ -253,10 +253,10 @@ extern IndoorLocation *pIndoor;
 
 struct BLVRenderParams {
     inline BLVRenderParams() {
-        uViewportX = 0;
-        uViewportY = 0;
-        uViewportZ = 0;
-        uViewportW = 0;
+        uScreen_X = 0;
+        uScreen_Y = 0;
+        uScreen_Z = 0;
+        uScreen_W = 0;
     }
 
     void Reset();
@@ -267,14 +267,14 @@ struct BLVRenderParams {
 
     unsigned int uTargetWidth = 0;
     unsigned int uTargetHeight = 0;
-    unsigned int uViewportX;
-    unsigned int uViewportY;
-    unsigned int uViewportZ;
-    unsigned int uViewportW;
-    int uViewportHeight = 0;
-    int uViewportWidth = 0;
-    int uViewportCenterX = 0;
-    int uViewportCenterY = 0;
+    unsigned int uScreen_X;
+    unsigned int uScreen_Y;
+    unsigned int uScreen_Z;
+    unsigned int uScreen_W;
+    int uScreen_Height = 0;
+    int uScreen_Width = 0;
+    int uScreen_CenterX = 0;
+    int uScreen_CenterY = 0;
     unsigned int uNumFacesRenderedThisFrame = 0;
 };
 extern BLVRenderParams *pBLVRenderParams;

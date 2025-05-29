@@ -245,10 +245,10 @@ void ParticleEngine::DrawParticles_BLV() {
         // TODO(pskelton): reinstate this guard check
         // TODO(Nik-RE-dev): all types except for Line appear to behave identically
         if (true) {
-            /*p->uScreenSpaceX >= pBLVRenderParams->uViewportX &&
-            p->uScreenSpaceX < pBLVRenderParams->uViewportZ &&
-            p->uScreenSpaceY >= pBLVRenderParams->uViewportY &&
-            p->uScreenSpaceY < pBLVRenderParams->uViewportW) { */
+            /*p->uScreenSpaceX >= pBLVRenderParams->uScreen_X &&
+            p->uScreenSpaceX < pBLVRenderParams->uScreen_Z &&
+            p->uScreenSpaceY >= pBLVRenderParams->uScreen_Y &&
+            p->uScreenSpaceY < pBLVRenderParams->uScreen_W) { */
             if (p->type & ParticleType_Diffuse) {
                 // v14 = &pParticles[i];
                 v15.screenspace_projection_factor_x = p->screenspace_scale;

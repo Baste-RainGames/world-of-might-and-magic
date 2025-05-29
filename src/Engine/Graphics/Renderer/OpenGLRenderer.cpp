@@ -530,10 +530,10 @@ void OpenGLRenderer::ScreenFade(Color color, float t) {
     Colorf cf = color.toColorf();
     cf.a = std::clamp(t, 0.0f, 1.0f);
 
-    float drawx = static_cast<float>(pViewport->uViewportTL_X);
-    float drawy = static_cast<float>(pViewport->uViewportTL_Y);
-    float drawz = static_cast<float>(pViewport->uViewportBR_X);
-    float draww = static_cast<float>(pViewport->uViewportBR_Y);
+    float drawx = static_cast<float>(pViewport->uScreen_TL_X);
+    float drawy = static_cast<float>(pViewport->uScreen_TL_Y);
+    float drawz = static_cast<float>(pViewport->uScreen_BR_X);
+    float draww = static_cast<float>(pViewport->uScreen_BR_Y);
 
     static GraphicsImage *effpar03 = assets->getBitmap("effpar03");
     float gltexid = static_cast<float>(effpar03->renderId().value());
@@ -853,14 +853,14 @@ void OpenGLRenderer::DrawIndoorSky(int /*uNumVertices*/, int uFaceID) {
     // lowers clouds as party goes up
     float  blv_horizon_height_offset = ((pCamera3D->ViewPlaneDistPixels * pCamera3D->vCameraPos.z)
         / (pCamera3D->ViewPlaneDistPixels + pCamera3D->GetFarClip())
-        + (pBLVRenderParams->uViewportCenterY));
+        + (pBLVRenderParams->uScreen_CenterY));
 
     double cam_y_rot_rad = (double)pCamera3D->_viewPitch * rot_to_rads;
 
     float depth_to_far_clip = std::cos(pCamera3D->_viewPitch * rot_to_rads) * pCamera3D->GetFarClip();
     float height_to_far_clip = std::sin(pCamera3D->_viewPitch * rot_to_rads) * pCamera3D->GetFarClip();
 
-    float blv_bottom_y_proj = ((pBLVRenderParams->uViewportCenterY) -
+    float blv_bottom_y_proj = ((pBLVRenderParams->uScreen_CenterY) -
         pCamera3D->ViewPlaneDistPixels /
         (depth_to_far_clip + 0.0000001f) *
         (height_to_far_clip - pCamera3D->vCameraPos.z));
@@ -893,7 +893,7 @@ void OpenGLRenderer::DrawIndoorSky(int /*uNumVertices*/, int uFaceID) {
     unsigned _507D30_idx = 0;
     for (; _507D30_idx < uNumVertices; _507D30_idx++) {
         // outbound screen x dist
-        float x_dist = inv_viewplanedist * (pBLVRenderParams->uViewportCenterX - VertexRenderList[_507D30_idx].vWorldViewProjX);
+        float x_dist = inv_viewplanedist * (pBLVRenderParams->uScreen_CenterX - VertexRenderList[_507D30_idx].vWorldViewProjX);
         // outbound screen y dist
         float y_dist = inv_viewplanedist * (blv_horizon_height_offset - VertexRenderList[_507D30_idx].vWorldViewProjY);
 
@@ -1009,7 +1009,7 @@ RgbaImage OpenGLRenderer::MakeViewportScreenshot(const int width, const int heig
     if (uCurrentlyLoadedLevelType != LEVEL_NULL) {
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                pPixels[y][x] = sPixels[outputRender.h - (y + 1) * interval_y - pViewport->uViewportTL_Y][x * interval_x + pViewport->uViewportTL_X];
+                pPixels[y][x] = sPixels[outputRender.h - (y + 1) * interval_y - pViewport->uScreen_TL_Y][x * interval_x + pViewport->uScreen_TL_X];
             }
         }
     }
@@ -2019,17 +2019,17 @@ void OpenGLRenderer::DrawOutdoorSky() {
         //  |8,351                468,351 |
         // 1._____________________________.2
         //
-        VertexRenderList[0].vWorldViewProjX = (double)(signed int)pViewport->uViewportTL_X;  // 8
-        VertexRenderList[0].vWorldViewProjY = (double)(signed int)pViewport->uViewportTL_Y;  // 8
+        VertexRenderList[0].vWorldViewProjX = (double)(signed int)pViewport->uScreen_TL_X;  // 8
+        VertexRenderList[0].vWorldViewProjY = (double)(signed int)pViewport->uScreen_TL_Y;  // 8
 
-        VertexRenderList[1].vWorldViewProjX = (double)(signed int)pViewport->uViewportTL_X;   // 8
+        VertexRenderList[1].vWorldViewProjX = (double)(signed int)pViewport->uScreen_TL_X;   // 8
         VertexRenderList[1].vWorldViewProjY = (double)bot_y_proj + 1;  // 247
 
-        VertexRenderList[2].vWorldViewProjX = (double)(signed int)pViewport->uViewportBR_X;   // 468
+        VertexRenderList[2].vWorldViewProjX = (double)(signed int)pViewport->uScreen_BR_X;   // 468
         VertexRenderList[2].vWorldViewProjY = (double)bot_y_proj + 1;  // 247
 
-        VertexRenderList[3].vWorldViewProjX = (double)(signed int)pViewport->uViewportBR_X;  // 468
-        VertexRenderList[3].vWorldViewProjY = (double)(signed int)pViewport->uViewportTL_Y;  // 8
+        VertexRenderList[3].vWorldViewProjX = (double)(signed int)pViewport->uScreen_BR_X;  // 468
+        VertexRenderList[3].vWorldViewProjY = (double)(signed int)pViewport->uScreen_TL_Y;  // 8
 
         float widthperpixel = 1 / pCamera3D->ViewPlaneDistPixels;
 
@@ -2064,23 +2064,23 @@ void OpenGLRenderer::DrawOutdoorSky() {
 
         if (engine->config->graphics.Fog.value()) {
             // fade sky
-            VertexRenderList[4].vWorldViewProjX = (double)pViewport->uViewportTL_X;
-            VertexRenderList[4].vWorldViewProjY = (double)pViewport->uViewportTL_Y;
-            VertexRenderList[5].vWorldViewProjX = (double)pViewport->uViewportTL_X;
+            VertexRenderList[4].vWorldViewProjX = (double)pViewport->uScreen_TL_X;
+            VertexRenderList[4].vWorldViewProjY = (double)pViewport->uScreen_TL_Y;
+            VertexRenderList[5].vWorldViewProjX = (double)pViewport->uScreen_TL_X;
             VertexRenderList[5].vWorldViewProjY = (double)bot_y_proj - engine->config->graphics.FogHorizon.value();
-            VertexRenderList[6].vWorldViewProjX = (double)pViewport->uViewportBR_X;
+            VertexRenderList[6].vWorldViewProjX = (double)pViewport->uScreen_BR_X;
             VertexRenderList[6].vWorldViewProjY = (double)bot_y_proj - engine->config->graphics.FogHorizon.value();
-            VertexRenderList[7].vWorldViewProjX = (double)pViewport->uViewportBR_X;
-            VertexRenderList[7].vWorldViewProjY = (double)pViewport->uViewportTL_Y;
+            VertexRenderList[7].vWorldViewProjX = (double)pViewport->uScreen_BR_X;
+            VertexRenderList[7].vWorldViewProjY = (double)pViewport->uScreen_TL_Y;
 
             // sub sky
-            VertexRenderList[8].vWorldViewProjX = (double)pViewport->uViewportTL_X;
+            VertexRenderList[8].vWorldViewProjX = (double)pViewport->uScreen_TL_X;
             VertexRenderList[8].vWorldViewProjY = (double)bot_y_proj - engine->config->graphics.FogHorizon.value();
-            VertexRenderList[9].vWorldViewProjX = (double)pViewport->uViewportTL_X;
-            VertexRenderList[9].vWorldViewProjY = (double)pViewport->uViewportBR_Y + 1;
-            VertexRenderList[10].vWorldViewProjX = (double)pViewport->uViewportBR_X;
-            VertexRenderList[10].vWorldViewProjY = (double)pViewport->uViewportBR_Y + 1;
-            VertexRenderList[11].vWorldViewProjX = (double)pViewport->uViewportBR_X;
+            VertexRenderList[9].vWorldViewProjX = (double)pViewport->uScreen_TL_X;
+            VertexRenderList[9].vWorldViewProjY = (double)pViewport->uScreen_BR_Y + 1;
+            VertexRenderList[10].vWorldViewProjX = (double)pViewport->uScreen_BR_X;
+            VertexRenderList[10].vWorldViewProjY = (double)pViewport->uScreen_BR_Y + 1;
+            VertexRenderList[11].vWorldViewProjX = (double)pViewport->uScreen_BR_X;
             VertexRenderList[11].vWorldViewProjY = (double)bot_y_proj - engine->config->graphics.FogHorizon.value();
         }
 
