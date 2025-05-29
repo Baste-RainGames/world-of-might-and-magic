@@ -48,34 +48,29 @@ struct ViewingParams {
     void AdjustPosition();
     void _443365();
 
-    int uSomeX = 0;  // game screen co ords
-    int uSomeY = 0;
-    int uSomeZ = 0;
-    int uSomeW = 0;
-
     // viewport coords
     unsigned int uScreen_topL_X = 0; // 8
     unsigned int uScreen_topL_Y = 0; // 8
     unsigned int uScreen_BttmR_X = 0; // 468
     unsigned int uScreen_BttmR_Y = 0;  // 352
 
-    int field_20 = 0;
+    int field_20 = 0; // Never read from, set to 0xFFFFFF00 in MM7Initialization if not outdoors.
     unsigned int uMinimapZoom = 0;
     unsigned int uMapBookMapZoom = 0;
     int sViewCenterX = 0;
     int sViewCenterY = 0;
     int16_t indoor_center_x = 0;
     int16_t indoor_center_y = 0;
-    int field_3C = 0;
+    int field_3C = 0; // unused
     GraphicsImage *location_minimap = nullptr;  // unsigned int uTextureID_LocationMap; ::40
-    int field_4C = 0;
+    int field_4C = 0; // never written to. Everything that reads is a check for if (!field_4C)
     int draw_sw_outlines = 0;
     int draw_d3d_outlines = 0;
-    int field_58 = 0;
-    int field_5C = 0;
-    int field_60 = 0;
-    int field_64 = 0;
-    int field_68 = 0;
+    int field_58 = 0; // unused
+    int field_5C = 0; // unused
+    int field_60 = 0; // unused
+    int field_64 = 0; // unused
+    int field_68 = 0; // unused
     Color pPalette[256] {};
 };
 

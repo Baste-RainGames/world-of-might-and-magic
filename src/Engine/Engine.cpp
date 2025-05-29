@@ -610,10 +610,10 @@ void DoPrepareWorld(bool bLoading, int _1_fullscreen_loading_2_box) {
 //----- (004647AB) --------------------------------------------------------
 void FinalInitialization() {
     pViewport->SetScreen(
-        viewparams->uSomeX,
-        viewparams->uSomeY,
-        viewparams->uSomeZ,
-        viewparams->uSomeW
+        viewparams->uScreen_topL_X,
+        viewparams->uScreen_topL_Y,
+        viewparams->uScreen_BttmR_X,
+        viewparams->uScreen_BttmR_Y
     );
     pViewport->ResetScreen();
 
@@ -846,12 +846,8 @@ void MM7Initialization() {
         viewparams->field_20 &= 0xFFFFFF00;
     }
 
-    viewparams->uSomeY = viewparams->uScreen_topL_Y;
-    viewparams->uSomeX = viewparams->uScreen_topL_X;
-    viewparams->uSomeZ = viewparams->uScreen_BttmR_X;
-    viewparams->uSomeW = viewparams->uScreen_BttmR_Y;
-
-    pViewport->SetScreen(viewparams->uScreen_topL_X, viewparams->uScreen_topL_Y,
+    pViewport->SetScreen(viewparams->uScreen_topL_X, 
+                         viewparams->uScreen_topL_Y,
                          viewparams->uScreen_BttmR_X,
                          viewparams->uScreen_BttmR_Y);
 }
