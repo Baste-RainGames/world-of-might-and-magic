@@ -888,8 +888,6 @@ void GameUI_WritePointedObjectStatusString() {
     int pX;                   // [sp+D4h] [bp-Ch]@1
     int pY;                   // [sp+D8h] [bp-8h]@1
 
-    // int testing;
-
     mouse->uPointingObjectID = Pid();
     Pointi mousePos = mouse->position();
     pX = mousePos.x;
