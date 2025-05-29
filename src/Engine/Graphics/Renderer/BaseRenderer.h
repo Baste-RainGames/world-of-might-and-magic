@@ -58,9 +58,9 @@ class BaseRenderer : public Renderer {
     void TransformBillboard(const SoftwareBillboard *a2, const RenderBillboard *pBillboard);
 
  protected:
-    Sizei outputRender = {0, 0}; // Actual size of the renderer (ie. 1920x1080 on a HD screen)
-    Sizef outputScale = {0, 0}; // outputRender / 640x480 to scale things to the screen size
-    Sizei outputPresent = {0, 0};
+    Sizei outputPresent = {0, 0}; // Actual size of the Game window
+    Sizei outputRender  = {0, 0}; // Size of the renderer, which can be set from the config file.
+    Sizef outputScale   = {0, 0}; // outputRender / 640x480. A lot of original code is hardcoded for 640x480.
 
  private:
     void updateRenderDimensions();
