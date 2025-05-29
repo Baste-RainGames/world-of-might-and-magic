@@ -1629,7 +1629,7 @@ void ShowPopupShopItem() {
 
 //----- (0041D3B7) --------------------------------------------------------
 void GameUI_CharacterQuickRecord_Draw(GUIWindow *window, int characterIndex) {
-    GraphicsImage *v13;              // eax@6
+    GraphicsImage *playerFaceImage;              // eax@6
     std::string spellName;   // eax@16
     int v36;                 // esi@22
     int uFramesetIDa;        // [sp+20h] [bp-8h]@18
@@ -1643,12 +1643,12 @@ void GameUI_CharacterQuickRecord_Draw(GUIWindow *window, int characterIndex) {
     window->uFrameHeight = ((assets->pFontArrus->GetHeight() + 162) + ((numActivePlayerBuffs - 1) * assets->pFontArrus->GetHeight()));
     window->uFrameZ = window->uFrameWidth + window->uFrameX - 1;
     window->uFrameW = ((assets->pFontArrus->GetHeight() + 162) + ((numActivePlayerBuffs - 1) * assets->pFontArrus->GetHeight())) + window->uFrameY - 1;
-    window->DrawMessageBox(0);
+    window->DrawMessageBox(false);
 
     if (player->IsEradicated()) {
-        v13 = game_ui_player_face_eradicated;
+        playerFaceImage = game_ui_player_face_eradicated;
     } else if (player->IsDead()) {
-        v13 = game_ui_player_face_dead;
+        playerFaceImage = game_ui_player_face_dead;
     } else {
         int faceTextureIndex = 1;
         if (player->portrait == PORTRAIT_TALK)
@@ -1657,10 +1657,12 @@ void GameUI_CharacterQuickRecord_Draw(GUIWindow *window, int characterIndex) {
             faceTextureIndex = pPortraitFrameTable->animationFrameIndex(pPortraitFrameTable->animationId(player->portrait),
                                                                         pMiscTimer->time());
         player->portraitImageIndex = faceTextureIndex - 1;
-        v13 = game_ui_player_faces[characterIndex][faceTextureIndex - 1];
+        playerFaceImage = game_ui_player_faces[characterIndex][faceTextureIndex - 1];
     }
 
-    render->DrawTextureNew((window->uFrameX + 24) / 640.0f, (window->uFrameY + 24) / 480.0f, v13);
+    float faceX = (window->uFrameX + 24) / 640.0f;
+    float faceY = (window->uFrameY + 24) / 480.0f;
+    render->DrawTextureNew(faceX, faceY, playerFaceImage);
 
     // TODO(captainurist): do a 2nd rewrite here
     auto str =
@@ -1847,6 +1849,7 @@ void UI_OnMouseRightClick(int mouse_x, int mouse_y) {
             mouse->DoMouseLook();
 
             if ((signed int)pY > (signed int)pViewport->uViewportBR_Y) {
+            //if ((signed int)pY > (signed int)pViewport->uViewportBR_Y) {
                 int characterIndex = pX / 118;
                 if (characterIndex < 4) { // portaits zone
                     popup_window.sHint.clear();

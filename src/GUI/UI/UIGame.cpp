@@ -886,8 +886,6 @@ void GameUI_WritePointedObjectStatusString() {
     int pX;                   // [sp+D4h] [bp-Ch]@1
     int pY;                   // [sp+D8h] [bp-8h]@1
 
-    // int testing;
-
     mouse->uPointingObjectID = Pid();
     mouse->GetClickPos(&pX, &pY);
     Sizei renDims = render->GetRenderDimensions();
