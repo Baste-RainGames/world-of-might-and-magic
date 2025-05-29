@@ -44,11 +44,6 @@ void Viewport::SetScreen(int sTL_X, int sTL_Y, int sBR_X, int sBR_Y) {
     this->uScreenHeight = br_y - tl_y + 1;
     this->uScreenCenterX = (signed int)(br_x + tl_x) / 2;
     this->uScreenCenterY = (signed int)(br_y + tl_y) / 2;
-
-    this->uViewportTL_Y = tl_y;
-    this->uViewportTL_X = tl_x;
-    this->uViewportBR_X = br_x;
-    this->uViewportBR_Y = br_y;
 }
 
 //----- (004C02F8) --------------------------------------------------------
@@ -57,8 +52,8 @@ void Viewport::ResetScreen() {
 }
 
 bool Viewport::Contains(unsigned int x, unsigned int y) {
-    return ((int)x >= uViewportTL_X && (int)x <= uViewportBR_X &&
-            (int)y >= uViewportTL_Y && (int)y <= uViewportBR_Y);
+    return ((int)x >= uScreen_TL_X && (int)x <= uScreen_BR_X &&
+            (int)y >= uScreen_TL_Y && (int)y <= uScreen_BR_Y);
 }
 
 //----- (00443219) --------------------------------------------------------

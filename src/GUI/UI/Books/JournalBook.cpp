@@ -33,9 +33,9 @@ GUIWindow_JournalBook::GUIWindow_JournalBook() {
     ui_book_button1_off = assets->getImage_Alpha("tab-an-6a");
     ui_book_button2_off = assets->getImage_Alpha("tab-an-7a");
 
-    pBtn_Book_1 = CreateButton({pViewport->uViewportTL_X + 398, pViewport->uViewportTL_Y + 1}, ui_book_button1_on->size(), 1, 0,
+    pBtn_Book_1 = CreateButton({pViewport->uScreen_TL_X + 398, pViewport->uScreen_TL_Y + 1}, ui_book_button1_on->size(), 1, 0,
                                UIMSG_ClickBooksBtn, std::to_underlying(BOOK_PREV_PAGE), Io::InputAction::DialogLeft, localization->GetString(LSTR_SCROLL_UP), {ui_book_button1_on});
-    pBtn_Book_2 = CreateButton({pViewport->uViewportTL_X + 398, pViewport->uViewportTL_Y + 38}, ui_book_button2_on->size(), 1, 0,
+    pBtn_Book_2 = CreateButton({pViewport->uScreen_TL_X + 398, pViewport->uScreen_TL_Y + 38}, ui_book_button2_on->size(), 1, 0,
                                UIMSG_ClickBooksBtn, std::to_underlying(BOOK_NEXT_PAGE), Io::InputAction::DialogRight, localization->GetString(LSTR_SCROLL_DOWN), {ui_book_button2_on});
 
     journal_window.uFrameX = 48;
@@ -67,17 +67,17 @@ void GUIWindow_JournalBook::Update() {
 
     GUIWindow journal_window;
 
-    render->DrawTextureNew(pViewport->uViewportTL_X / 640.0f, pViewport->uViewportTL_Y / 480.0f, ui_book_journal_background);
+    render->DrawTextureNew(pViewport->uScreen_TL_X / 640.0f, pViewport->uScreen_TL_Y / 480.0f, ui_book_journal_background);
     if ((_bookButtonClicked && _bookButtonAction == BOOK_PREV_PAGE) || !_currentIdx) {
-        render->DrawTextureNew((pViewport->uViewportTL_X + 407) / 640.0f, (pViewport->uViewportTL_Y + 2) / 480.0f, ui_book_button1_off);
+        render->DrawTextureNew((pViewport->uScreen_TL_X + 407) / 640.0f, (pViewport->uScreen_TL_Y + 2) / 480.0f, ui_book_button1_off);
     } else {
-        render->DrawTextureNew((pViewport->uViewportTL_X + 398) / 640.0f, (pViewport->uViewportTL_Y + 1) / 480.0f, ui_book_button1_on);
+        render->DrawTextureNew((pViewport->uScreen_TL_X + 398) / 640.0f, (pViewport->uScreen_TL_Y + 1) / 480.0f, ui_book_button1_on);
     }
 
     if ((_bookButtonClicked && _bookButtonAction == BOOK_NEXT_PAGE) || (_currentIdx + 1) >= _journalIdx.size()) {
-        render->DrawTextureNew((pViewport->uViewportTL_X + 407) / 640.0f, (pViewport->uViewportTL_Y + 38) / 480.0f, ui_book_button2_off);
+        render->DrawTextureNew((pViewport->uScreen_TL_X + 407) / 640.0f, (pViewport->uScreen_TL_Y + 38) / 480.0f, ui_book_button2_off);
     } else {
-        render->DrawTextureNew((pViewport->uViewportTL_X + 398) / 640.0f, (pViewport->uViewportTL_Y + 38) / 480.0f, ui_book_button2_on);
+        render->DrawTextureNew((pViewport->uScreen_TL_X + 398) / 640.0f, (pViewport->uScreen_TL_Y + 38) / 480.0f, ui_book_button2_on);
     }
 
     if (_journalIdx.size() && !_journalEntryPage[_currentIdx]) {  // for title

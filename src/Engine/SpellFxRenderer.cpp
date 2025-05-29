@@ -1404,13 +1404,13 @@ int SpellFX_Billboard::SpellFXProject() {  // project to billboard coords
         field_104[i].diffuse = field_B4[i].diffuse;
 
         if (true)
-        /*(double)(signed int)pViewport->uViewportTL_X <=
+        /*(double)(signed int)pViewport->uScreen_TL_X <=
                 field_104[i].x &&
-                (double)(signed int)pViewport->uViewportBR_X >
+                (double)(signed int)pViewport->uScreen_BR_X >
                 field_104[i].x &&
-                (double)(signed int)pViewport->uViewportTL_Y <=
+                (double)(signed int)pViewport->uScreen_TL_Y <=
                 field_104[i].y &&
-                (double)(signed int)pViewport->uViewportBR_Y >
+                (double)(signed int)pViewport->uScreen_BR_Y >
                 field_104[i].y*/
                 Result = 1;
         }

@@ -23,11 +23,6 @@ struct Viewport {
     int uScreen_BR_X;  // 639
     int uScreen_BR_Y;  // 479
 
-    int uViewportTL_X;
-    int uViewportTL_Y;
-    int uViewportBR_X;
-    int uViewportBR_Y;
-
     int uScreenWidth;
     int uScreenHeight;
     int uScreenCenterX;

@@ -135,10 +135,10 @@ struct SoftwareBillboard {
     uint16_t *pPalette2;
     unsigned int uFlags;  // & 4   - mirror horizontally
     unsigned int uTargetPitch;
-    unsigned int uViewportX;
-    unsigned int uViewportY;
-    unsigned int uViewportZ;
-    unsigned int uViewportW;
+    unsigned int uScreen_X;
+    unsigned int uScreen_Y;
+    unsigned int uScreen_Z;
+    unsigned int uScreen_W;
     int field_44;
     int sParentBillboardID;
     Color sTintColor;

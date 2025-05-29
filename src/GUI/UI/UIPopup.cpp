@@ -1848,8 +1848,8 @@ void UI_OnMouseRightClick(int mouse_x, int mouse_y) {
             if (GetCurrentMenuID() > MENU_MAIN) break;
             mouse->DoMouseLook();
 
-            if ((signed int)pY > (signed int)pViewport->uViewportBR_Y) {
-            //if ((signed int)pY > (signed int)pViewport->uViewportBR_Y) {
+            if ((signed int)pY > (signed int)pViewport->uScreen_BR_Y) {
+            //if ((signed int)pY > (signed int)pViewport->uScreen_BR_Y) {
                 int characterIndex = pX / 118;
                 if (characterIndex < 4) { // portaits zone
                     popup_window.sHint.clear();
@@ -1859,7 +1859,7 @@ void UI_OnMouseRightClick(int mouse_x, int mouse_y) {
                     popup_window.uFrameY = 60;
                     GameUI_CharacterQuickRecord_Draw(&popup_window, characterIndex);
                 }
-            } else if ((int)pX > pViewport->uViewportBR_X) {
+            } else if ((int)pX > pViewport->uScreen_BR_X) {
                 if (pY >= 130) {
                     if (pX >= 476 && pX <= 636 && pY >= 240 && pY <= 300) {  // buff_tooltip zone
                         drawBuffPopupWindow();
@@ -1907,10 +1907,10 @@ void UI_OnMouseRightClick(int mouse_x, int mouse_y) {
         }
         case SCREEN_BOOKS: {
             if (pGUIWindow_CurrentMenu->eWindowType != WINDOW_MapsBook ||
-                (signed int)pX < (signed int)pViewport->uViewportTL_X ||
-                (signed int)pX > (signed int)pViewport->uViewportBR_X ||
-                (signed int)pY < (signed int)pViewport->uViewportTL_Y ||
-                (signed int)pY > (signed int)pViewport->uViewportBR_Y ||
+                (signed int)pX < (signed int)pViewport->uScreen_TL_X ||
+                (signed int)pX > (signed int)pViewport->uScreen_BR_X ||
+                (signed int)pY < (signed int)pViewport->uScreen_TL_Y ||
+                (signed int)pY > (signed int)pViewport->uScreen_BR_Y ||
                 ((popup_window.sHint = GetMapBookHintText(mouse_x, mouse_y)).empty())) {
                 break;
             }
