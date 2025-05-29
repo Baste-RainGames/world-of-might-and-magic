@@ -46,7 +46,7 @@ struct ViewingParams {
     void MapViewRight();
     void CenterOnPartyZoomOut();
     void AdjustPosition();
-    void _443365();
+    void _443365(); // Set initial minimap position and zoom based of level type.
 
     // viewport coords
     unsigned int uScreen_topL_X = 0; // 8
