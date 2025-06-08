@@ -1,5 +1,7 @@
-#include "Engine/Graphics/Viewport.h"
+#include <stacktrace>
+#include <iostream>
 
+#include "Engine/Graphics/Viewport.h"
 #include "Engine/Engine.h"
 #include "Engine/Evt/Processor.h"
 #include "Engine/Objects/DecorationList.h"
@@ -29,6 +31,9 @@ void Viewport::SetScreen(int sTL_X, int sTL_Y, int sBR_X, int sBR_Y) {
     unsigned int br_x;  // esi@1
     unsigned int tl_y;  // edi@3
     unsigned int br_y;  // eax@3
+
+    std::cout << std::stacktrace::current() << '\n';
+    fmt::println("{} {} {} {}", sTL_X, sTL_Y, sBR_X, sBR_Y);
 
     tl_x = std::min(sTL_X, sBR_X);
     br_x = std::max(sTL_X, sBR_X);

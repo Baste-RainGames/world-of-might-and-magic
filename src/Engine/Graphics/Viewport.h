@@ -11,17 +11,17 @@ class GraphicsImage;
 
 struct Viewport {
     inline Viewport() {
-        SetScreen(0, 0, 639, 479);
+        //SetScreen(0, 0, 639, 479);
     }
 
     void ResetScreen();
     void SetScreen(int uX, int uY, int uZ, int uW);
     bool Contains(unsigned int x, unsigned int y);
 
-    int uScreen_TL_X;  // 0
-    int uScreen_TL_Y;  // 0
-    int uScreen_BR_X;  // 639
-    int uScreen_BR_Y;  // 479
+    int uScreen_TL_X;
+    int uScreen_TL_Y;
+    int uScreen_BR_X;
+    int uScreen_BR_Y;
 
     int uScreenWidth;
     int uScreenHeight;
