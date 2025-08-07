@@ -77,7 +77,7 @@ var searchData=
   ['quarry_5flevel_74',['quarry_level',['../structArcomagePlayer.html#a9cb6d7ca78930519c9afcda3b7a980a1',1,'ArcomagePlayer::quarry_level()'],['../structArcomageStartConditions.html#aadcccc0544042fcbb6714943a76039a9',1,'ArcomageStartConditions::quarry_level()']]],
   ['quartermaster_75',['QuarterMaster',['../NPCEnums_8h.html#a060d039dd31dff6f434558155fbb35aeaae82ea307385abe07c7e4e34b788197e',1,'NPCEnums.h']]],
   ['query_76',['query',['../classHitMap.html#adfba4892f693e1bca0a2b4c494981f7b',1,'HitMap']]],
-  ['queryequipmenthitmap_77',['QueryEquipmentHitMap',['../classRenderer.html#ad39ea837e944997a2e393adff31ae14e',1,'Renderer::QueryEquipmentHitMap()'],['../classBaseRenderer.html#aaec0f53be265a8384a6bdef13faf1031',1,'BaseRenderer::QueryEquipmentHitMap()']]],
+  ['queryhitmap_77',['QueryHitMap',['../classRenderer.html#a8de4d72e480b8da3f01f10c23a2d63e0',1,'Renderer::QueryHitMap()'],['../classBaseRenderer.html#a8bcc09edf4f9e6c82e435e16a97305ac',1,'BaseRenderer::QueryHitMap()']]],
   ['queryregistry_78',['queryRegistry',['../classWinEnvironment.html#aa57af65555300ca3ea813f7d038595ea',1,'WinEnvironment::queryRegistry()'],['../classPosixEnvironment.html#aa83d7bf780c03ce0b647eac609451df5',1,'PosixEnvironment::queryRegistry()'],['../classEnvironment.html#a0811fcfdd1d8af4062182e7a6eb4a79d',1,'Environment::queryRegistry()'],['../classAndroidEnvironment.html#a91593072ba23c3ab3c34c3f2abab45b9',1,'AndroidEnvironment::queryRegistry()']]],
   ['querytable_79',['QueryTable',['../LuaItemQueryTable_8h.html#aebd5ddc0decd4f5dc7a64ffdaad12ecb',1,'LuaItemQueryTable.h']]],
   ['quest_80',['Quest',['../namespaceIo.html#a547e2ba6c6a5bb3a0b5987131e62a90ca07bf513a88c3df282a30cb374f8a933d',1,'Io::Quest()'],['../classGameConfig_1_1Keybindings.html#a21dc4e7f62a0818c87d8ca40e5bc2b6c',1,'GameConfig::Keybindings::Quest()'],['../classGameConfig_1_1Gamepad.html#a66ff1247e5d439a910f64c01429e528e',1,'GameConfig::Gamepad::Quest()']]],
@@ -89,9 +89,9 @@ var searchData=
   ['questtable_2ecpp_86',['QuestTable.cpp',['../QuestTable_8cpp.html',1,'']]],
   ['questtable_2eh_87',['QuestTable.h',['../QuestTable_8h.html',1,'']]],
   ['queue_88',['queue',['../classAudioBaseDataSource.html#afad5d8e73b5db26bc5adb74ba232b98d',1,'AudioBaseDataSource::queue()'],['../classAVStreamWrapper.html#a4eaadb601676642ee527164e25c78d10',1,'AVStreamWrapper::queue()']]],
-  ['quickload_89',['QuickLoad',['../namespaceIo.html#a547e2ba6c6a5bb3a0b5987131e62a90ca9a2691007df3673842172269e98d6ed5',1,'Io']]],
+  ['quickload_89',['QuickLoad',['../namespaceIo.html#a547e2ba6c6a5bb3a0b5987131e62a90ca9a2691007df3673842172269e98d6ed5',1,'Io::QuickLoad()'],['../classGameConfig_1_1Gamepad.html#a3173e207823ae9b2ec843485269bba1b',1,'GameConfig::Gamepad::QuickLoad()']]],
   ['quickload_90',['quickLoad',['../classGUIWindow__Load.html#a51d3178ef23ad8e8cca6555efd02bd72',1,'GUIWindow_Load']]],
-  ['quickload_91',['QuickLoad',['../classGameConfig_1_1Keybindings.html#a07764c42697b6fa4a337ef456e73f97b',1,'GameConfig::Keybindings::QuickLoad()'],['../classGameConfig_1_1Gamepad.html#a3173e207823ae9b2ec843485269bba1b',1,'GameConfig::Gamepad::QuickLoad()']]],
+  ['quickload_91',['QuickLoad',['../classGameConfig_1_1Keybindings.html#a07764c42697b6fa4a337ef456e73f97b',1,'GameConfig::Keybindings']]],
   ['quickloadgame_92',['QuickLoadGame',['../SaveLoad_8h.html#a03bbbe134f08767194337a05316439cc',1,'QuickLoadGame():&#160;SaveLoad.cpp'],['../SaveLoad_8cpp.html#a03bbbe134f08767194337a05316439cc',1,'QuickLoadGame():&#160;SaveLoad.cpp']]],
   ['quickref_93',['QuickRef',['../namespaceIo.html#a547e2ba6c6a5bb3a0b5987131e62a90caaac7cd14cb9bedf69f4ed5dc53360cd5',1,'Io']]],
   ['quickreference_94',['QuickReference',['../classGameConfig_1_1Keybindings.html#a2ae4ba38db2d7ace8c71f667bd485afd',1,'GameConfig::Keybindings::QuickReference()'],['../classGameConfig_1_1Gamepad.html#ae2f9232a1ac97977fcf7577d05da21fe',1,'GameConfig::Gamepad::QuickReference()']]],
@@ -101,5 +101,6 @@ var searchData=
   ['quicksavescount_98',['QuickSavesCount',['../classGameConfig_1_1Gameplay.html#ab0b99938dc819fff4a2a5285c68e6ca7',1,'GameConfig::Gameplay']]],
   ['quickspell_99',['quickSpell',['../structCharacter__MM7.html#a25e55f6514190f4185de5c0ee6024d2c',1,'Character_MM7::quickSpell()'],['../classCharacterTapeRecorder.html#add4d15a39dcf2346a22ca41f06869c35',1,'CharacterTapeRecorder::quickSpell(int characterIndex)']]],
   ['quickspells_100',['quickSpells',['../classCharacterTapeRecorder.html#a37082af2544a643f7eb578bef77970e0',1,'CharacterTapeRecorder']]],
-  ['quit_101',['quit',['../classPlatformEventLoop.html#a86243e0d297d5c8d74e10eccb65679b3',1,'PlatformEventLoop::quit()'],['../classNullEventLoop.html#a89ede41dcc2d2fe3607f3244fdab9020',1,'NullEventLoop::quit()'],['../classProxyEventLoop.html#a16ecbd3804189d6ea5907b08c379f8e0',1,'ProxyEventLoop::quit()'],['../classSdlEventLoop.html#ad83ec550f07d9bf2d4c187879beac6c9',1,'SdlEventLoop::quit()']]]
+  ['quickstart_101',['quickStart',['../structGameStarterOptions.html#a98ebaa6659d0b266a5a190f861f4deb1',1,'GameStarterOptions']]],
+  ['quit_102',['quit',['../classPlatformEventLoop.html#a86243e0d297d5c8d74e10eccb65679b3',1,'PlatformEventLoop::quit()'],['../classNullEventLoop.html#a89ede41dcc2d2fe3607f3244fdab9020',1,'NullEventLoop::quit()'],['../classProxyEventLoop.html#a16ecbd3804189d6ea5907b08c379f8e0',1,'ProxyEventLoop::quit()'],['../classSdlEventLoop.html#ad83ec550f07d9bf2d4c187879beac6c9',1,'SdlEventLoop::quit()']]]
 ];
